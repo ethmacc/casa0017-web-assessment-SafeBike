@@ -105,3 +105,10 @@ dist
 
 # Mac DS store
 .DS_Store
+
+# Python venv
+venv_dataproc/
+.ipynb_checkpoints/
+
+# LSOA shape files
+LB_LSOA2021_shp/
