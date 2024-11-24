@@ -6,14 +6,15 @@
 }
 
 #header{
-    height: 100px;  //or whatever. Note px not %.
-    width: 100%;
+    height: 100px;  
+    width: 100%; 
 }
 
 #footer{
-    height: 100px;  //or whatever. Note px not %.
+    height: 100px;  
     width: 100%;
 }
+
 
 #map-canvas{
     position: absolute; 
