@@ -1,8 +1,7 @@
  /* This is your main style file */
- html, body, #wrapper{
-    height: 100%;
-    width: 100%;
+body{
     margin: 0;
+    padding: 0;
 }
 
 #header{
@@ -15,23 +14,21 @@
     width: 100%;
 }
 
-
-#map-canvas{
-    position: absolute; 
-    top: 50%;         
-    left: 50%;     
-    transform: translate(-50%, -50%);
-    width: 90%;       
-    height: 90%;
-}
-
-#displayWrapper{
+#container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    }
+    
+#map {
     position: absolute;
-    font-family: 'Roboto', sans-serif;
-    background-color: rgba(255,255,255,0.1);
-    padding: 10px;
-    font-size: 30px;
-    bottom: 50px;
-    right: 10px;
-    color: #ffffff;
+    top: 0;
+    bottom: 0;
+    width: 100%;
+    }
+
+.navbar {
+    z-index: 1;
 }
