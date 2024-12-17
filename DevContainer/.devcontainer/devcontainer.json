@@ -1,0 +1,28 @@
+{
+    "name": "CASA0017 - Local",
+    "dockerComposeFile": [
+        "docker-compose.yml"
+    ],
+    "service": "app",
+    "workspaceFolder": "/usr/src/app", 
+    "customizations": {
+        "vscode": {
+            "extensions":
+            [
+                "dbaeumer.vscode-eslint",
+                "esbenp.prettier-vscode",
+                "formulahendry.vscode-mysql",
+                "christian-kohler.npm-intellisense",
+                "inferrinizzard.prettier-sql-vscode",
+                "RandomFractalsInc.geo-data-viewer",
+                "ritwickdey.LiveServer",
+                "vscode-icons-team.vscode-icons",
+                "pnp.polacode",
+                "mkxml.vscode-filesize",
+                "mikestead.dotenv"
+            ]
+        }
+    },
+    "shutdownAction": "stopCompose",
+    "remoteUser": "node"
+}

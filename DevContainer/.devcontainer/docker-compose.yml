@@ -1,0 +1,48 @@
+version: '3.8'
+services:
+    app:
+        build:
+            context: ..
+            dockerfile: .devcontainer/Dockerfile
+            args:
+                - NODE_ENV=development
+                - USER_ID=${USER_ID:-0}
+                - GROUP_ID=${GROUP_ID:-0}
+
+        # command: node server.js && sleep infinity
+        restart: always
+
+        depends_on:
+            - mysql
+ 
+        volumes:
+            - ..:/usr/src/app
+            - ../configuration/nginx.conf:/etc/nginx/nginx.conf
+            - ../website:/opt/html
+
+        env_file:
+            - ../configuration/.env
+
+        environment:
+            - NODE_ENV=development
+          # - NODE_ENV=production
+
+        ports:
+            - 8000:80
+            - 9229:9229
+
+    mysql:
+        image: mysql:8.3
+        restart: always
+        volumes:
+            - ../db-data:/var/lib/mysql
+            - ../configuration/mysql/cnf:/etc/mysql/conf.d
+            - ../configuration/mysql/init.sql:/docker-entrypoint-initdb.d/init.sql
+        ports:
+            - 3307:3306
+        user: 1000:1000
+        environment:
+            MYSQL_ROOT_PASSWORD: root634
+            MYSQL_USER: uclqlel
+            MYSQL_PASSWORD: pass634
+            MYSQL_DATABASE: crimedata
