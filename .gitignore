@@ -129,3 +129,6 @@ venv_dataproc/
 
 # LSOA shape files
 LB_LSOA2021_shp/
+
+#LB_shp files
+LB_shp/
