@@ -1,6 +1,6 @@
 import '../front-end/css/style-app.css';
 import { BASEMAP } from '@deck.gl/carto';
-import { Map } from 'maplibre-gl';
+import { Map, Popup } from 'maplibre-gl';
 import 'maplibre-gl/dist/maplibre-gl.css';
 
 import { MapboxOverlay } from '@deck.gl/mapbox';
@@ -40,6 +40,35 @@ async function main () {
   });
 
   map.addControl(deckOverlay);
+
+  //still working, working on data processing
+  const BIKETHEFDATA = ''
+  deckOverlay.setProps({
+    layers: [
+      ...deckOverlay._props.layers,
+      new GeoJsonLayer({
+        id: 'label',
+        data:BIKETHEFDATA,
+        onHover: info => {
+          const {coordinate, object} = info;
+          if(object){map.getCanvas().style.cursor = 'pointer';}
+          else{map.getCanvas().style.cursor = 'grab';}
+        },
+      onClick: (info) => {
+          console.log(info);
+          const {coordinate, object} = info;
+          let population=object.properties.pop_max;
+          population= population.toLocaleString(); 
+          const description = `working`;    
+          //MapLibre Popup
+          new Popup({closeOnClick: false, closeOnMove:true})
+              .setLngLat(coordinate)
+              .setHTML(description)
+              .addTo(map);
+        },
+      })
+    ]
+  })
 }
 
 main();

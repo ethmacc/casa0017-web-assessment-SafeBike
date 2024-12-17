@@ -168,6 +168,7 @@ venv_dataproc/
 
 # LSOA shape files
 LB_LSOA2021_shp/
+LB_shp/
 
 # Editor directories and files
 .vscode/*
@@ -179,3 +180,4 @@ LB_LSOA2021_shp/
 *.njsproj
 *.sln
 *.sw?
+
