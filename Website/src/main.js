@@ -41,32 +41,51 @@ async function main () {
 
   map.addControl(deckOverlay);
 
+  const colorArea = '../data_processing/bikeTheftDataWithGeometry(color).geojson'
   //still working, working on data processing
-  const BIKETHEFDATA = ''
   deckOverlay.setProps({
     layers: [
       ...deckOverlay._props.layers,
       new GeoJsonLayer({
-        id: 'label',
-        data:BIKETHEFDATA,
+        id: 'base-map', // Every layer needs a unique ID
+        data: colorArea, // Replace with the path or variable holding the GeoJSON data
+        // Styles
+        stroked: true, // Keep the border line
+        filled: true,  // Enable fill color
+        lineWidthMinPixels: 2,
+        opacity: 0.7,
+        getLineColor: [0, 0, 0], // Static black border
+        getFillColor: d => {
+          // Parse color data from the GeoJSON properties
+          if (d.properties && d.properties.color) {
+            const color = d.properties.color; // e.g., "rgb(255, 0, 0)"
+            const match = color.match(/\d+/g); // Extract RGB values
+            if (match) {
+              return match.map(Number); // Convert to [R, G, B]
+            }
+          }
+          return [255, 255, 255]; // Default to white if no color is provided
+        },
+        beforeId: 'place_suburbs', // Render under the map's labels
         onHover: info => {
           const {coordinate, object} = info;
-          if(object){map.getCanvas().style.cursor = 'pointer';}
-          else{map.getCanvas().style.cursor = 'grab';}
+          map.getCanvas().style.cursor = object ? 'pointer' : 'grab';
         },
-      onClick: (info) => {
-          console.log(info);
+        onClick: info => {
           const {coordinate, object} = info;
-          let population=object.properties.pop_max;
-          population= population.toLocaleString(); 
-          const description = `working`;    
-          //MapLibre Popup
-          new Popup({closeOnClick: false, closeOnMove:true})
+          if (object) {
+            const properties = object.properties;
+            const fields = Object.entries(properties)
+              .map(([key, value]) => `<p><strong>${key}:</strong> ${value || 'No Data'}</p>`)
+              .join('');
+            new Popup({closeOnClick: false, closeOnMove: true})
               .setLngLat(coordinate)
-              .setHTML(description)
+              .setHTML(`<div><h3>Feature Information</h3>${fields}</div>`)
               .addTo(map);
+          }
         },
-      })
+      }),
+      
     ]
   })
 }
