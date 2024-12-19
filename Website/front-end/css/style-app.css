@@ -32,3 +32,8 @@ body{
 .navbar {
     z-index: 1;
 }
+
+.card {
+    z-index: 1;
+    margin: 20px;
+}
