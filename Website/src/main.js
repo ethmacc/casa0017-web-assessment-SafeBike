@@ -47,42 +47,51 @@ async function main () {
     layers: [
       ...deckOverlay._props.layers,
       new GeoJsonLayer({
-        id: 'base-map', // Every layer needs a unique ID
-        data: colorArea, // Replace with the path or variable holding the GeoJSON data
-        // Styles
-        stroked: true, // Keep the border line
-        filled: true,  // Enable fill color
+        id: 'colorArea',
+        data: colorArea, 
+        stroked: true, 
+        filled: true,
+        pickable: true,
         lineWidthMinPixels: 2,
         opacity: 0.7,
-        getLineColor: [0, 0, 0], // Static black border
         getFillColor: d => {
-          // Parse color data from the GeoJSON properties
           if (d.properties && d.properties.color) {
-            const color = d.properties.color; // e.g., "rgb(255, 0, 0)"
-            const match = color.match(/\d+/g); // Extract RGB values
+            const color = d.properties.color;
+            const match = color.match(/\d+/g); 
             if (match) {
-              return match.map(Number); // Convert to [R, G, B]
+              const rgba = match.map(Number); 
+              rgba.push(200); 
+              return rgba;
             }
           }
-          return [255, 255, 255]; // Default to white if no color is provided
+          return [255, 255, 255,200];
         },
-        beforeId: 'place_suburbs', // Render under the map's labels
-        onHover: info => {
-          const {coordinate, object} = info;
-          map.getCanvas().style.cursor = object ? 'pointer' : 'grab';
-        },
-        onClick: info => {
+        beforeId: 'place_suburbs',
+        // onHover: info => {
+        //   const {coordinate,object} = info;
+        //   if(object){map.getCanvas().style.cursor = 'pointer';}
+        //   else{map.getCanvas().style.cursor = 'grab';}
+        // },
+        onClick: (info) => {
           const {coordinate, object} = info;
           if (object) {
-            const properties = object.properties;
-            const fields = Object.entries(properties)
-              .map(([key, value]) => `<p><strong>${key}:</strong> ${value || 'No Data'}</p>`)
-              .join('');
-            new Popup({closeOnClick: false, closeOnMove: true})
-              .setLngLat(coordinate)
-              .setHTML(`<div><h3>Feature Information</h3>${fields}</div>`)
-              .addTo(map);
-          }
+            const properties = object.properties || {};
+            const description = `
+              <div>
+                <h5>SafeBike Information</h5>
+                <p><strong>LSOA Name:</strong> ${properties['LSOA Name']}</p>
+                <p><strong>LSOA Code:</strong> ${properties['LSOA Code']}</p>
+                <p><strong>Total Cases:</strong> ${properties['Total']}</p>
+              </div>`;
+
+          //MapLibre Popup
+            new Popup({closeOnClick: false, closeOnMove:true})
+                .setLngLat(coordinate)
+                .setHTML(description)
+                .addTo(map);
+            } else {
+              console.log('No feature clicked.');
+            }
         },
       }),
       
