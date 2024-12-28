@@ -37,3 +37,37 @@ body{
     z-index: 1;
     margin: 20px;
 }
+
+.input-container {
+    position: fixed;
+    bottom: 130px;
+    left: 20px;
+    z-index: 2000;
+    background: rgba(255, 255, 255, 0.95);
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.input-container input {
+    display: block;
+    margin: 10px 0;
+    padding: 10px;
+    width: 250px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.input-container button {
+    display: block;
+    padding: 10px 20px;
+    background-color: #007cbf;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.input-container button:hover {
+    background-color: #005f91;
+}

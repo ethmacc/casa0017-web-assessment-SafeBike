@@ -181,3 +181,4 @@ LB_shp/
 *.sln
 *.sw?
 
+Website/src/config.js

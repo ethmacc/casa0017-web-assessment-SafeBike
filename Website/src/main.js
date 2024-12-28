@@ -8,6 +8,9 @@ import { GeoJsonLayer } from '@deck.gl/layers';
 
 import { DataFilterExtension } from '@deck.gl/extensions';
 
+import maplibregl from 'maplibre-gl';
+import { API_TOKEN } from './config.js';
+
 async function main () {
   //Initialise Maplibre BaseMap
   const map = new Map({
@@ -191,6 +194,175 @@ async function main () {
   document.getElementById('family-dropdown').addEventListener('change', (event) => {
     updateFilter(event.target.value);
   });
+
+  const orsApiKey = API_TOKEN;
+  let start = null;
+  let end = null;
+  let startMarker = null;
+  let endMarker = null;
+
+  // Listen for input box button click events
+  document.getElementById('routeButton').addEventListener('click', () => {
+    const startLocation = document.getElementById('startLocation').value;
+    const endLocation = document.getElementById('endLocation').value;
+
+    if (startLocation && endLocation) {
+      geocodeAndRoute(startLocation, endLocation);
+    } else {
+      alert('Please enter start and end addresses');
+    }
+  });
+
+  // Geocode and generate route
+  function geocodeAndRoute(startLocation, endLocation) {
+    const geocodeUrl = (query) =>
+      `https://api.openrouteservice.org/geocode/search?api_key=${orsApiKey}&text=${query}`;
+
+    Promise.all([fetch(geocodeUrl(startLocation)), fetch(geocodeUrl(endLocation))])
+      .then((responses) => Promise.all(responses.map((res) => res.json())))
+      .then((results) => {
+        const startResult = results[0].features[0]?.geometry?.coordinates;
+        const endResult = results[1].features[0]?.geometry?.coordinates;
+
+        if (!startResult || !endResult) {
+          alert('Unable to find start or end points. Please check the entered addresses');
+          return;
+        }
+
+        clearRouteAndMarkers();
+        addMarker(startResult, 'start');
+        addMarker(endResult, 'end');
+
+        getRoute(startResult, endResult);
+      })
+      .catch((error) => {
+        console.error('Geocoding failed:', error);
+        alert('Geocoding failed. Please check the addresses or try again later');
+      });
+  }
+
+  // Set start and end points by clicking on the map
+  let isSettingStart = true;
+
+  map.on('click', (e) => {
+    const { lng, lat } = e.lngLat;
+
+    if (isSettingStart) {
+      clearRouteAndMarkers();
+      start = [lng, lat];
+      updateInput(start, 'start');
+      addMarker(start, 'start');
+      isSettingStart = false;
+    } else {
+      end = [lng, lat];
+      updateInput(end, 'end');
+      addMarker(end, 'end');
+      isSettingStart = true;
+    }
+
+    if (start && end) {
+      getRoute(start, end);
+    }
+  });
+
+  // Reverse geocode and update input box
+  function updateInput(coords, type) {
+    const reverseGeocodeUrl = `https://api.openrouteservice.org/geocode/reverse?api_key=${orsApiKey}&point.lon=${coords[0]}&point.lat=${coords[1]}`;
+
+    fetch(reverseGeocodeUrl)
+      .then(response => response.json())
+      .then((data) => {
+        const address = data.features[0]?.properties?.label || 'Unknown location';
+
+        if (type === 'start') {
+          document.getElementById('startLocation').value = address;
+        } else {
+          document.getElementById('endLocation').value = address;
+        }
+      })
+      .catch((error) => {
+        console.error('Reverse geocoding failed:', error);
+        alert('Unable to resolve location. Please try again later');
+      });
+  }
+
+  // Function to add markers
+  function addMarker(coords, type) {
+    const el = document.createElement('div');
+    el.className = type === 'start' ? 'start-marker' : 'end-marker';
+
+    const marker = new maplibregl.Marker(el).setLngLat(coords).addTo(map);
+
+    if (type === 'start') {
+      startMarker = marker;
+    } else {
+      endMarker = marker;
+    }
+  }
+
+  // Clear old markers, route, and inputs
+  function clearRouteAndMarkers() {
+    if (startMarker) startMarker.remove();
+    if (endMarker) endMarker.remove();
+
+    startMarker = null;
+    endMarker = null;
+    start = null;
+    end = null;
+
+    document.getElementById('startLocation').value = '';
+    document.getElementById('endLocation').value = '';
+
+    if (map.getSource('route')) {
+      map.removeLayer('route-layer');
+      map.removeSource('route');
+    }
+  }
+
+  // Call ORS API to generate route
+  function getRoute(start, end) {
+    const orsUrl = `https://api.openrouteservice.org/v2/directions/driving-car?api_key=${orsApiKey}&start=${start.join(',')}&end=${end.join(',')}`;
+
+    fetch(orsUrl)
+      .then(response => response.json())
+      .then((data) => {
+        const route = data.features[0].geometry;
+
+        map.addSource('route', {
+          type: 'geojson',
+          data: {
+            type: 'Feature',
+            properties: {},
+            geometry: route
+          }
+        });
+
+        map.addLayer({
+          id: 'route-layer',
+          type: 'line',
+          source: 'route',
+          layout: {
+            'line-join': 'round',
+            'line-cap': 'round'
+          },
+          paint: {
+            'line-color': '#007cbf',
+            'line-width': 5
+          }
+        });
+
+        const bounds = new maplibregl.LngLatBounds();
+        route.coordinates.forEach(coord => {
+          bounds.extend(coord);
+        });
+        map.fitBounds(bounds, { padding: 50 });
+      })
+      .catch((error) => {
+        console.error('Route generation failed:', error);
+        alert('Unable to generate route. Please try again later');
+      });
+  }
 }
+
 
 main();
