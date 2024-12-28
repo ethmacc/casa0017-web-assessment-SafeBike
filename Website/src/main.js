@@ -24,7 +24,7 @@ async function main () {
   //wait until map is loaded before loading data
   await map.once('load');
 
-  const colorArea = '../data_processing/bikeTheftDataWithGeometry(color).geojson'
+  const colorArea = '../data_processing/lsoa21.geojson'
   //still working, working on data processing
 
   //Data filtering - populate dropdown
@@ -55,7 +55,7 @@ async function main () {
   const LSOALayer = new GeoJsonLayer({
     id: 'colorArea',
     data: colorArea, 
-    stroked: true, 
+    stroked: false, 
     filled: true,
     pickable: true,
     lineWidthMinPixels: 1,
@@ -127,7 +127,7 @@ async function main () {
     const LSOALayer = new GeoJsonLayer({
       id: 'colorArea',
       data: colorArea, 
-      stroked: true, 
+      stroked: false, 
       filled: true,
       pickable: true,
       lineWidthMinPixels: 1,
