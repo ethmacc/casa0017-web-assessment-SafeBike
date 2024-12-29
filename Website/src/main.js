@@ -1,5 +1,5 @@
 import '../front-end/css/style-app.css';
-import { BASEMAP } from '@deck.gl/carto';
+import { BASEMAP, colorBins, colorContinuous } from '@deck.gl/carto';
 import { Map, Popup } from 'maplibre-gl';
 import 'maplibre-gl/dist/maplibre-gl.css';
 
@@ -12,6 +12,25 @@ import maplibregl from 'maplibre-gl';
 import { API_TOKEN } from './config.js';
 
 async function main () {
+  //Slider function, adapted from JQuery demo code
+  var startMonthIdx = 0;
+  var endMonthIdx = 23;
+  $( function() {
+    $( "#slider-range" ).slider({
+      range: true,
+      min: 1,
+      max: 24,
+      values: [ 1, 24 ],
+      slide: function( event, ui ) {
+        $( "#date_range" ).val( "Month " + ui.values[ 0 ] + " - Month " + ui.values[ 1 ] );
+        startMonthIdx = ui.values[0] - 1;
+        endMonthIdx = ui.values[1] - 1;
+      }
+    });
+    $( "#date_range" ).val( "Month " + $( "#slider-range" ).slider( "values", 0 ) +
+      " - Month " + $( "#slider-range" ).slider( "values", 1 ) );
+  } );
+
   //Initialise Maplibre BaseMap
   const map = new Map({
     container: 'map',
@@ -24,6 +43,7 @@ async function main () {
   //wait until map is loaded before loading data
   await map.once('load');
 
+  //Add data
   const colorArea = '../data_processing/lsoa21.geojson'
   //still working, working on data processing
 
@@ -66,19 +86,11 @@ async function main () {
       filterCategories:addArray
     },
     extensions: [new DataFilterExtension({ categorySize: addArray[0]==='all'? 0:1})],
-    getLineColor: [255, 255, 255],
-    getFillColor: d => {
-      if (d.properties && d.properties.color) {
-        const color = d.properties.color;
-        const match = color.match(/\d+/g); 
-        if (match) {
-          const rgba = match.map(Number); 
-          rgba.push(200); 
-          return rgba;
-        }
-      }
-      return [255, 255, 255,200];
-    },
+    getFillColor: colorContinuous({
+      attr: 'Total',
+      domain: [0, 5, 10, 20, 50, 100, 200],
+      colors: 'Geyser'
+    }),
     beforeId: 'place_suburbs',
     // onHover: info => {
     //   const {coordinate,object} = info;
@@ -138,19 +150,11 @@ async function main () {
         filterCategories:addArray
       },
       extensions: [new DataFilterExtension({ categorySize: addArray[0]==='all'? 0:1})],
-      getLineColor: [255, 255, 255],
-      getFillColor: d => {
-        if (d.properties && d.properties.color) {
-          const color = d.properties.color;
-          const match = color.match(/\d+/g); 
-          if (match) {
-            const rgba = match.map(Number); 
-            rgba.push(200); 
-            return rgba;
-          }
-        }
-        return [255, 255, 255,200];
-      },
+      getFillColor: colorContinuous({
+        attr: 'Total',
+        domain: [0, 5, 10, 20, 50, 100, 200],
+        colors: 'Geyser'
+      }),
       beforeId: 'place_suburbs',
       // onHover: info => {
       //   const {coordinate,object} = info;
@@ -355,7 +359,7 @@ async function main () {
         route.coordinates.forEach(coord => {
           bounds.extend(coord);
         });
-        map.fitBounds(bounds, { padding: 50 });
+        map.fitBounds(bounds, { padding: 300 });
       })
       .catch((error) => {
         console.error('Route generation failed:', error);
