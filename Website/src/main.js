@@ -12,25 +12,6 @@ import maplibregl from 'maplibre-gl';
 import { API_TOKEN } from './config.js';
 
 async function main () {
-  //Slider function, adapted from JQuery demo code
-  var startMonthIdx = 0;
-  var endMonthIdx = 23;
-  $( function() {
-    $( "#slider-range" ).slider({
-      range: true,
-      min: 1,
-      max: 24,
-      values: [ 1, 24 ],
-      slide: function( event, ui ) {
-        $( "#date_range" ).val( "Month " + ui.values[ 0 ] + " - Month " + ui.values[ 1 ] );
-        startMonthIdx = ui.values[0] - 1;
-        endMonthIdx = ui.values[1] - 1;
-      }
-    });
-    $( "#date_range" ).val( "Month " + $( "#slider-range" ).slider( "values", 0 ) +
-      " - Month " + $( "#slider-range" ).slider( "values", 1 ) );
-  } );
-
   //Initialise Maplibre BaseMap
   const map = new Map({
     container: 'map',
@@ -38,7 +19,7 @@ async function main () {
     interactive: true,
     center:[-0.12262486445294093,51.50756471490389],
     zoom: 10
-  })
+  });
 
   //wait until map is loaded before loading data
   await map.once('load');
@@ -72,6 +53,11 @@ async function main () {
       .catch(error => console.error('Error loading JSON', error));
   }
 
+  const months = ['202210', '202211', '202212', '202301', '202302', '202303', '202304',
+       '202305', '202306', '202307', '202308', '202309', '202310', '202311',
+       '202312', '202401', '202402', '202403', '202404', '202405', '202406',
+       '202407', '202408', '202409', 'Total']
+
   const LSOALayer = new GeoJsonLayer({
     id: 'colorArea',
     data: colorArea, 
@@ -87,8 +73,8 @@ async function main () {
     },
     extensions: [new DataFilterExtension({ categorySize: addArray[0]==='all'? 0:1})],
     getFillColor: colorContinuous({
-      attr: 'Total',
-      domain: [0, 5, 10, 20, 50, 100, 200],
+      attr: months[23],
+      domain: [0, 1, 2, 5, 10, 20, 50],
       colors: 'Geyser'
     }),
     beforeId: 'place_suburbs',
@@ -132,9 +118,15 @@ async function main () {
 
   map.addControl(deckOverlay);
 
-  function updateFilter(selectedFamilyValue) {
-    addArray=[]
-    addArray.push(selectedFamilyValue)
+  function updateFilter(selectedFamilyValue, month_idx) {
+    addArray=[];
+    addArray.push(selectedFamilyValue);
+
+    var colormap = colorContinuous({
+      attr: months[month_idx],
+      domain: [0, 1, 2, 5, 10, 20, 50],
+      colors: 'Geyser'
+    });
 
     const LSOALayer = new GeoJsonLayer({
       id: 'colorArea',
@@ -146,15 +138,12 @@ async function main () {
       opacity: 0.3,
       getFilterCategory:d=> d.properties['Borough Name'],
       filterCategories:addArray,
+      getFillColor: colormap,
       updateTriggers: {
-        filterCategories:addArray
+        filterCategories:addArray,
+        getFillColor: colormap,
       },
       extensions: [new DataFilterExtension({ categorySize: addArray[0]==='all'? 0:1})],
-      getFillColor: colorContinuous({
-        attr: 'Total',
-        domain: [0, 5, 10, 20, 50, 100, 200],
-        colors: 'Geyser'
-      }),
       beforeId: 'place_suburbs',
       // onHover: info => {
       //   const {coordinate,object} = info;
@@ -170,7 +159,7 @@ async function main () {
               <h5>SafeBike Information</h5>
               <p><strong>LSOA Name:</strong> ${properties['LSOA Name']}</p>
               <p><strong>LSOA Code:</strong> ${properties['LSOA Code']}</p>
-              <p><strong>Total Cases:</strong> ${properties['Total']}</p>
+              <p><strong>Total Cases:</strong> ${properties[months[month_idx]]}</p>
             </div>`;
   
         //MapLibre Popup
@@ -196,8 +185,37 @@ async function main () {
 
   //Dropdown event listener
   document.getElementById('family-dropdown').addEventListener('change', (event) => {
-    updateFilter(event.target.value);
+    const isChecked = document.querySelector('#totalCheck').checked;
+    if (isChecked) {
+      updateFilter(event.target.value, 24);
+    }
+    else {
+      updateFilter(event.target.value, document.getElementById('monthRange').value);
+    }
   });
+
+  //Slider function on input
+  document.getElementById('monthRange').oninput = function() {
+    const date = months[document.getElementById('monthRange').value]
+    $( "#monthLabel" ).text( date.slice(4) + "/" + date.slice(0, 4));
+    updateFilter(document.getElementById('family-dropdown').value, document.getElementById('monthRange').value);
+  };
+
+  //Total checkbox
+  document.getElementById('totalCheck').oninput = function() {
+    const isChecked = document.querySelector('#totalCheck').checked;
+    const date = months[document.getElementById('monthRange').value]
+    if (isChecked) {
+      $( "#monthLabel" ).text("showing total");
+      updateFilter(document.getElementById('family-dropdown').value, 24);
+      document.getElementById("monthRange").disabled = true;
+    }
+    else {
+      $( "#monthLabel" ).text( date.slice(4) + "/" + date.slice(0, 4));
+      updateFilter(document.getElementById('family-dropdown').value, document.getElementById('monthRange').value);
+      document.getElementById("monthRange").disabled = false;
+    }
+  }
 
   const orsApiKey = API_TOKEN;
   let start = null;
@@ -359,7 +377,7 @@ async function main () {
         route.coordinates.forEach(coord => {
           bounds.extend(coord);
         });
-        map.fitBounds(bounds, { padding: 300 });
+        map.fitBounds(bounds, { padding: 100 });
       })
       .catch((error) => {
         console.error('Route generation failed:', error);
