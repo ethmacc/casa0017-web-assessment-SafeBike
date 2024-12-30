@@ -3,7 +3,9 @@
     height: 100%;
     width: 100%;
     margin: 0;
+    
 }
+
 
 #header{
     height: 100px;  
@@ -15,32 +17,61 @@
     width: 100%;
 }
 
-.container{
+/* .container{
     width: 100%;
     height: 100vh;
 
-}
+} */
 
-.introduction{
-    width: 100%;
-    height: 100vh;
+#landing{
     display: flex;
-    flex-direction: column;
     align-items: center;
-    justify-content: center;
-    gap: 20px;
     text-align: center;
-    color: gray;
+    justify-content: center;
+    height: 100vh;
+    background-size: cover;
+    background: linear-gradient(#0000,#0000), url("../img/cycle-rack.jpg");
+    background-position: center;
+    background-repeat: no-repeat;
+    margin-bottom: 50px;      
 }
 
-.introduction img{
-    width: 350px;
+h5{
+    margin-top: 2px;
+    margin-bottom: 5px;
 }
 
-.introduction h2 {
-    font-size: 24px;
-    margin: 0;
-    color: gray;
+#about{
+padding: 50px 0;
+position: relative;
 }
+
+.AboutHeading {
+    margin-bottom: 40px;
+    
+}
+
+.AboutHeading .objective{
+ width: 120px;
+ height: 2px;
+ background-color: black;
+ margin: 16px auto 24px auto; 
+}
+
+.AboutHeading p {
+    width: 750px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+
+
+
+#about img{
+ max-width: 100%;
+ height: auto;
+}
+
+
 
 
