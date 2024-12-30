@@ -41,18 +41,22 @@
                 <li class="list-group-item">The application on this page displays bike theft in London broken down by LSOA (2021) over 24 months, from October of 2022 to September of 2024.</li>
                 <li class="list-group-item">You can filter the data:</li>
                 <li class="list-group-item">
-                  <p>
-                    <label for="amount">By date range:</label> <!--Slider for date range filtering-->
-                    <input type="text" id="amount" readonly="" style="border:0; color:#f6931f; font-weight:bold;">
-                  </p>
-                  <div id="slider-range"></div>
-                </li>
-                <li class="list-group-item">
                   <div>By borough:
                     <select id="family-dropdown"> <!--Dropdown list for filtering by borough-->
                       <option value="all">All</option>
                     </select>
                   </div>
+                </li>
+                <li class="list-group-item">
+                  By month:
+                    <label id="monthLabel" for="monthRange" class="form-label">09/2024</label>
+                    <input type="range" class="form-range" min="0" max="23" value="23" step="1" id="monthRange">
+                    <div class="form-check">
+                      <input class="form-check-input" type="checkbox" value="" id="totalCheck" default>
+                      <label class="form-check-label" for="totalCheck">
+                        Show 24 month total
+                      </label>
+                    </div>
                 </li>
                 <li class="list-group-item">
                     <input id="startLocation" type="text" placeholder="Input Start Address">
@@ -71,22 +75,6 @@
         </div>
     </body>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
-    <script type="module" src="src/main.js"></script>
     <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
-    <script src="https://code.jquery.com/ui/1.14.1/jquery-ui.js"></script>
-    <script> 
-      $( function() {
-        $( "#slider-range" ).slider({
-          range: true,
-          min: 1,
-          max: 24,
-          values: [ 1, 24 ],
-          slide: function( event, ui ) {
-            $( "#amount" ).val( "Month " + ui.values[ 0 ] + " - Month " + ui.values[ 1 ] );
-          }
-        });
-        $( "#amount" ).val( "Month " + $( "#slider-range" ).slider( "values", 0 ) +
-          " - Month " + $( "#slider-range" ).slider( "values", 1 ) );
-      } );
-      </script>
+    <script type="module" src="src/main.js"></script>
 </html>
