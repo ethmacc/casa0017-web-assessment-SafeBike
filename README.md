@@ -3,12 +3,16 @@
 ## Contents
 
 [About](#about)
+[Design](#design)
+[Showcase](#showcase)
+[Installation](#Installation)
+[Our Team](#our-team)
 
 ## About
 
 **SafeBike** is a web application that visualizes bike theft crime statistics in London. The application uses a data-driven backend powered by Node.js, and interactively displays historic data
 
-### Data sources
+### Data Sources
 
 - APIs: OSM overpass, CycleStreets
 - MPS Recorded Crime: Geographic Breakdown - MPS LSOA Level Crime (most recent 24 months), 24 months (https://data.london.gov.uk/dataset/recorded_crime_summary)
@@ -52,7 +56,7 @@ Placeholder 3 (Routing?)
 
 Include a section that gives intructions on how to install the app or run it in Docker.  What versions of the plugins are you assuming?  Maybe define a licence as well, this is good practise.
 
-##  Our team
+##  Our Team
 <a href="https://github.com/ethmacc/casa0017-web-assessment/graphs/contributors">
   <img src="https://contributors-img.web.app/image?repo=ethmacc/casa0017-web-assessment" />
 </a>
