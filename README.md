@@ -17,6 +17,21 @@
 - APIs: OSM overpass, CycleStreets
 - MPS Recorded Crime: Geographic Breakdown - MPS LSOA Level Crime (most recent 24 months), 24 months (https://data.london.gov.uk/dataset/recorded_crime_summary)
 
+## Showcase
+
+Placeholder 1 (Home)
+
+![image](https://github.com/user-attachments/assets/344421da-93c3-47ea-be1b-254b34e85dca)
+
+
+Placeholder 2 (App)
+
+![image](https://github.com/user-attachments/assets/d043b0a9-dd1f-42ab-876b-d6f4204c7314)
+
+Placeholder 3 (Routing?)
+
+![image](https://github.com/user-attachments/assets/53ee011c-95df-4ca3-9561-13be36254856)
+
 ## Design
 
 ### Users
@@ -34,23 +49,6 @@ SafeBike is primarly aimed to be used by people living and working around London
 ![Bicycle Theft Presentation (3)](https://github.com/user-attachments/assets/bcb8b633-23ef-4a59-a26b-e5364be04356)
 
 ![Bicycle Theft Presentation (4)](https://github.com/user-attachments/assets/14fe1580-3078-4886-9846-3f776e2213ba)
-
-
-## Showcase
-
-Placeholder 1 (Home)
-
-![image](https://github.com/user-attachments/assets/344421da-93c3-47ea-be1b-254b34e85dca)
-
-
-Placeholder 2 (App)
-
-![image](https://github.com/user-attachments/assets/d043b0a9-dd1f-42ab-876b-d6f4204c7314)
-
-Placeholder 3 (Routing?)
-
-![image](https://github.com/user-attachments/assets/53ee011c-95df-4ca3-9561-13be36254856)
-
 
 ## Installation
 
