@@ -2,7 +2,7 @@
 
 ## Contents
 
-[About]("#about")
+[About](#about)
 
 ## About
 
