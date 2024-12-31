@@ -39,7 +39,10 @@
             </div>
               <ul class="list-group list-group flush">
                 <li class="list-group-item">The application on this page displays bike theft in London broken down by LSOA (2021) over 24 months, from October of 2022 to September of 2024.</li>
-                <li class="list-group-item">You can filter the data:</li>
+                <li class="list-group-item"><button class="btn btn-link" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+                  Data filter options
+                </button></li>
+                <div id="collapseOne" class="collapse">
                 <li class="list-group-item">
                   <div>By borough:
                     <select id="family-dropdown"> <!--Dropdown list for filtering by borough-->
@@ -48,21 +51,28 @@
                   </div>
                 </li>
                 <li class="list-group-item">
-                  By month:
-                    <label id="monthLabel" for="monthRange" class="form-label">09/2024</label>
-                    <input type="range" class="form-range" min="0" max="23" value="23" step="1" id="monthRange">
-                    <div class="form-check">
-                      <input class="form-check-input" type="checkbox" value="" id="totalCheck" default>
-                      <label class="form-check-label" for="totalCheck">
-                        Show 24 month total
-                      </label>
-                    </div>
+                  <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="" id="totalCheck" default>
+                    <label class="form-check-label" for="totalCheck">
+                      By individual month:
+                    </label>
+                  </div>
+                    <input type="range" class="form-range" min="0" max="23" value="23" step="1" id="monthRange" disabled>
+                    <label id="monthLabel" for="monthRange" class="form-label">Currently showing total</label>
                 </li>
+              </div>
                 <li class="list-group-item">
+                  <button class="btn btn-link" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapsTwo">
+                    Plan a your bike route
+                  </button>
+                </li>
+                <div id="collapseTwo" class="collapse">
+                  <li class="list-group-item">
                     <input id="startLocation" type="text" placeholder="Input Start Address">
                     <input id="endLocation" type="text" placeholder="Input End Address">
                     <button id="routeButton">Generate Route</button>
                 </li>
+                </div>
                 <li class="list-group-item card-footer">
                     Sources:
                     <a href="#" class="card-link">Metropolitan Police Data</a> <!--Please add link to Met police data source-->

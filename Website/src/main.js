@@ -73,7 +73,7 @@ async function main () {
     },
     extensions: [new DataFilterExtension({ categorySize: addArray[0]==='all'? 0:1})],
     getFillColor: colorContinuous({
-      attr: months[23],
+      attr: months[24],
       domain: [0, 1, 2, 5, 10, 20, 50],
       colors: 'Geyser'
     }),
@@ -92,7 +92,7 @@ async function main () {
             <h5>SafeBike Information</h5>
             <p><strong>LSOA Name:</strong> ${properties['LSOA Name']}</p>
             <p><strong>LSOA Code:</strong> ${properties['LSOA Code']}</p>
-            <p><strong>Total Cases:</strong> ${properties['Total']}</p>
+            <p><strong>No. of Cases:</strong> ${properties['Total']}</p>
           </div>`;
 
       //MapLibre Popup
@@ -159,7 +159,7 @@ async function main () {
               <h5>SafeBike Information</h5>
               <p><strong>LSOA Name:</strong> ${properties['LSOA Name']}</p>
               <p><strong>LSOA Code:</strong> ${properties['LSOA Code']}</p>
-              <p><strong>Total Cases:</strong> ${properties[months[month_idx]]}</p>
+              <p><strong>No. of Cases:</strong> ${properties[months[month_idx]]}</p>
             </div>`;
   
         //MapLibre Popup
@@ -206,15 +206,16 @@ async function main () {
     const isChecked = document.querySelector('#totalCheck').checked;
     const date = months[document.getElementById('monthRange').value]
     if (isChecked) {
-      $( "#monthLabel" ).text("showing total");
-      updateFilter(document.getElementById('family-dropdown').value, 24);
-      document.getElementById("monthRange").disabled = true;
-    }
-    else {
       $( "#monthLabel" ).text( date.slice(4) + "/" + date.slice(0, 4));
       updateFilter(document.getElementById('family-dropdown').value, document.getElementById('monthRange').value);
       document.getElementById("monthRange").disabled = false;
     }
+    else {
+      $( "#monthLabel" ).text("Currently showing total");
+      updateFilter(document.getElementById('family-dropdown').value, 24);
+      document.getElementById("monthRange").disabled = true;
+    }
+    
   }
 
   const orsApiKey = API_TOKEN;
