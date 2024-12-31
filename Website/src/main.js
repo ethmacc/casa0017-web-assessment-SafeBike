@@ -1,6 +1,6 @@
 import '../front-end/css/style-app.css';
 import { BASEMAP, colorBins, colorContinuous } from '@deck.gl/carto';
-import { Map, Popup } from 'maplibre-gl';
+import { Map, Popup,Marker} from 'maplibre-gl';
 import 'maplibre-gl/dist/maplibre-gl.css';
 
 import { MapboxOverlay } from '@deck.gl/mapbox';
@@ -255,7 +255,9 @@ async function main () {
         addMarker(startResult, 'start');
         addMarker(endResult, 'end');
 
-        getRoute(startResult, endResult);
+        getRoute(startResult, endResult).then(()=>{
+          findBikeParking(endResult);
+        });
       })
       .catch((error) => {
         console.error('Geocoding failed:', error);
@@ -280,6 +282,7 @@ async function main () {
       updateInput(end, 'end');
       addMarker(end, 'end');
       isSettingStart = true;
+      findBikeParking(end);
     }
 
     if (start && end) {
@@ -339,6 +342,7 @@ async function main () {
       map.removeLayer('route-layer');
       map.removeSource('route');
     }
+    removeBikeParkingMarkers();
   }
 
   // Call ORS API to generate route
@@ -383,6 +387,59 @@ async function main () {
         console.error('Route generation failed:', error);
         alert('Unable to generate route. Please try again later');
       });
+  }
+
+  //get bike parking of end address
+  let bikeParkingMarkers = [];
+  function findBikeParking(coords) {
+    const overpassUrl = `https://overpass-api.de/api/interpreter?data=[out:json];node(around:500,${coords[1]},${coords[0]})[amenity=bicycle_parking];out;`;
+    fetch(overpassUrl)
+      .then(response => response.json())
+      .then(data => {
+        // Calculate distance
+        const elementsWithDistance = data.elements.map(element => {
+          const distance = calculateDistance(coords, [element.lon, element.lat]);
+          return { ...element, distance };
+        });
+        // Sort by distance
+        elementsWithDistance.sort((a, b) => a.distance - b.distance);
+        // nearest 10
+        const nearest10 = elementsWithDistance.slice(0, 10);
+        nearest10.forEach(element => {
+          const markerEl = document.createElement('div');
+          markerEl.className = 'bikeParkingMarker';
+          const marker = new Marker({
+            element: markerEl,
+            anchor: 'bottom' 
+          })
+            .setLngLat([element.lon, element.lat])
+            .addTo(map);
+          bikeParkingMarkers.push(marker);
+        });
+      })
+      .catch(error => {
+        console.error('Error fetching bike parking data:', error);
+      });
+  }
+
+  function removeBikeParkingMarkers() {
+    bikeParkingMarkers.forEach(marker => marker.remove());
+    bikeParkingMarkers = [];
+  }
+  //function to caudate distance
+  function calculateDistance(coord1, coord2) {
+    const toRad = angle => (angle * Math.PI) / 180;
+    const [lon1, lat1] = coord1;
+    const [lon2, lat2] = coord2;
+    const R = 6371;
+    const dLat = toRad(lat2 - lat1);
+    const dLon = toRad(lon2 - lon1);
+    const a =
+      Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+      Math.cos(toRad(lat1)) * Math.cos(toRad(lat2)) *
+      Math.sin(dLon / 2) * Math.sin(dLon / 2);
+    const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+    return R * c;
   }
 }
 

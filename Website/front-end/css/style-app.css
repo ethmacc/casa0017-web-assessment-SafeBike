@@ -62,3 +62,14 @@ body{
 }
 
 
+.bikeParkingMarker {
+    background-image: url('../img/bikeParking.jpg');
+    background-size: cover;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    border: 2px solid white;
+    cursor: pointer;
+    position: relative; /* 确保定位属性已设置 */
+    z-index: 1000; /* 设置较高的z-index值 */
+}
