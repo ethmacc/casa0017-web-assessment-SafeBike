@@ -70,6 +70,5 @@ body{
     border-radius: 50%;
     border: 2px solid white;
     cursor: pointer;
-    position: relative; /* 确保定位属性已设置 */
-    z-index: 1000; /* 设置较高的z-index值 */
+    position: relative;
 }
