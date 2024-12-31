@@ -2,6 +2,8 @@
 
 ## Contents
 
+[About](href="#about")
+
 ## About
 
 **SafeBike** is a web application that visualizes bike theft crime statistics in London. The application uses a data-driven backend powered by Node.js, and interactively displays historic data
