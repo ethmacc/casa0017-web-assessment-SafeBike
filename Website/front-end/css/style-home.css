@@ -51,17 +51,15 @@ position: relative;
     
 }
 
-.AboutHeading .objective{
- width: 120px;
- height: 2px;
- background-color: black;
- margin: 16px auto 24px auto; 
-}
+
 
 .AboutHeading p {
     width: 750px;
     margin-left: auto;
     margin-right: auto;
+    margin-top: 2px;
+    margin-bottom: 3px;
+    text-align: center;
 }
 
 
@@ -72,6 +70,15 @@ position: relative;
  height: auto;
 }
 
+.iconbox{
+    width: 60px;
+    height: 60px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex: none;
+    font-size: 48px;
+}
 
 
 
