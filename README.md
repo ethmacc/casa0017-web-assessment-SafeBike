@@ -2,11 +2,11 @@
 
 ## Contents
 
-[About](#about)
-[Design](#design)
-[Showcase](#showcase)
-[Installation](#Installation)
-[Our Team](#our-team)
+- [About](#about)
+- [Design](#design)
+- [Showcase](#showcase)
+- [Installation](#Installation)
+- [Our Team](#our-team)
 
 ## About
 
