@@ -10,19 +10,21 @@
 
 ## About
 
-**SafeBike** is a web application that visualizes bike theft crime statistics in London. The application uses a data-driven backend powered by Node.js, and interactively displays historic data
+**SafeBike** is a web application that visualizes bike theft crime statistics in London. The application uses a data-driven backend powered by Node.js, and interactively displays historic data on bike theft incidents from the London Metropolitan Police. Users can use the filtering functions to view the number of bike theft cases broken down by Lower layer Super Output Areas (LSOAs) over a period of 24 months. Users can also use the routing function to plot a route through London that displays the safest places to park their bikes at their destination.
 
 ### Data Sources
 
 - APIs: OSM overpass, CycleStreets
 - MPS Recorded Crime: Geographic Breakdown - MPS LSOA Level Crime (most recent 24 months), 24 months (https://data.london.gov.uk/dataset/recorded_crime_summary)
+- LSOA 2021 boundaries (https://data.london.gov.uk/dataset/statistical-gis-boundary-files-london)
+
+The MPS Crime Data contains data for all types of crime over the past 24 months. Therefore, it was necessary to filter the data to remove everything except bike theft incidents. This was done using a Jupyter notebook, which can be found in ```Website/data_processing```, which was also used to merge the filtered data with the geographic boundaries for each LSOA. The merged data was then output as a .geojson file for use with Maplibre and Deck.gl.
 
 ## Showcase
 
 Placeholder 1 (Home)
 
 ![image](https://github.com/user-attachments/assets/344421da-93c3-47ea-be1b-254b34e85dca)
-
 
 Placeholder 2 (App)
 
