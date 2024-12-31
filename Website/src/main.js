@@ -1,5 +1,5 @@
 import '../front-end/css/style-app.css';
-import { BASEMAP, colorBins, colorContinuous } from '@deck.gl/carto';
+import { BASEMAP, colorContinuous } from '@deck.gl/carto';
 import { Map, Popup,Marker} from 'maplibre-gl';
 import 'maplibre-gl/dist/maplibre-gl.css';
 
@@ -74,7 +74,7 @@ async function main () {
     extensions: [new DataFilterExtension({ categorySize: addArray[0]==='all'? 0:1})],
     getFillColor: colorContinuous({
       attr: months[24],
-      domain: [0, 1, 2, 5, 10, 20, 50],
+      domain: [0, 1, 2, 5, 10, 20, 50, 100],
       colors: 'Geyser'
     }),
     beforeId: 'place_suburbs',
@@ -124,7 +124,7 @@ async function main () {
 
     var colormap = colorContinuous({
       attr: months[month_idx],
-      domain: [0, 1, 2, 5, 10, 20, 50],
+      domain: [0, 1, 2, 5, 10, 20, 50, 100],
       colors: 'Geyser'
     });
 
@@ -187,10 +187,10 @@ async function main () {
   document.getElementById('family-dropdown').addEventListener('change', (event) => {
     const isChecked = document.querySelector('#totalCheck').checked;
     if (isChecked) {
-      updateFilter(event.target.value, 24);
+      updateFilter(event.target.value, document.getElementById('monthRange').value);
     }
     else {
-      updateFilter(event.target.value, document.getElementById('monthRange').value);
+      updateFilter(event.target.value, 24);
     }
   });
 

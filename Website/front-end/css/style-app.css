@@ -1,4 +1,4 @@
- /* This is your main style file */
+ /* Styles for app.html*/
 body{
     margin: 0;
     padding: 0;
@@ -33,10 +33,38 @@ body{
     z-index: 1;
 }
 
+/* app ui panel */
 .card {
     z-index: 1;
     margin: 20px;
 }
+
+/* legend styles adapted from https://tilemill-project.github.io/tilemill/docs/guides/advanced-legends/ */
+#legend-scale ul {
+    margin: 0;
+    padding: 0;
+    float: left;
+    list-style: none;
+}
+
+#legend-scale ul li {
+    display: block;
+    float: left;
+    width: 35px;
+    margin-bottom: 6px;
+    text-align: center;
+    font-size: 80%;
+    list-style: none;
+}
+
+#legend-labels li span {
+    display: block;
+    float: left;
+    height: 15px;
+    width: 35px;
+}
+
+/* Styles for routing input fields */
 
 #startLocation, #endLocation {
     display: block;
