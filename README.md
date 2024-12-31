@@ -2,7 +2,7 @@
 
 ## Contents
 
-[About](href="#about")
+[About]("#about")
 
 ## About
 
