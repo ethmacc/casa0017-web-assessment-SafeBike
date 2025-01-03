@@ -283,11 +283,38 @@ async function main () {
 
     if (startLocation && endLocation) {
       geocodeAndRoute(startLocation, endLocation);
+      convertPostcodeToCoords(endLocation)
+    .then(coords => {
+      if (coords) {
+        console.log(coords);
+        findBikeParking(coords); // 使用转换后的坐标
+      } else {
+        console.error('Could not find coordinates for the provided postcode.');
+      }
+    })
+    .catch(error => {
+      console.error('Error converting postcode to coordinates:', error);
+    });
     } else {
       alert('Please enter start and end addresses');
     }
   });
 
+  function convertPostcodeToCoords(postcode) {
+    const geocodingUrl = `https://api.postcodes.io/postcodes/${encodeURIComponent(postcode)}`;
+  
+    return fetch(geocodingUrl)
+      .then(response => response.json())
+      .then(data => {
+        if (data.status === 200 && data.result) {
+          const { latitude, longitude } = data.result;
+          return [parseFloat(longitude.toFixed(4)), parseFloat(latitude.toFixed(4))]; 
+        } else {
+          return null;
+        }
+      });
+  }
+  
   // Geocode and generate route
   function geocodeAndRoute(startLocation, endLocation) {
     const geocodeUrl = (query) =>
@@ -308,9 +335,7 @@ async function main () {
         addMarker(startResult, 'start');
         addMarker(endResult, 'end');
 
-        getRoute(startResult, endResult).then(()=>{
-          findBikeParking(endResult);
-        });
+        getRoute(startResult, endResult);
       })
       .catch((error) => {
         console.error('Geocoding failed:', error);
@@ -335,11 +360,11 @@ async function main () {
       updateInput(end, 'end');
       addMarker(end, 'end');
       isSettingStart = true;
-      findBikeParking(end);
     }
 
     if (start && end) {
       getRoute(start, end);
+      findBikeParking(end);
     }
   });
 
@@ -445,7 +470,8 @@ async function main () {
   //get bike parking of end address
   let bikeParkingMarkers = [];
   function findBikeParking(coords) {
-    const overpassUrl = `https://overpass-api.de/api/interpreter?data=[out:json];node(around:500,${coords[1]},${coords[0]})[amenity=bicycle_parking];out;`;
+    const overpassUrl = `https://overpass-api.de/api/interpreter?data=[out:json];node(around:2000,${coords[1]},${coords[0]})[amenity=bicycle_parking];out;`;
+    console.log('Overpass API URL:', overpassUrl);
     fetch(overpassUrl)
       .then(response => response.json())
       .then(data => {
@@ -474,6 +500,7 @@ async function main () {
         console.error('Error fetching bike parking data:', error);
       });
   }
+  
 
   function removeBikeParkingMarkers() {
     bikeParkingMarkers.forEach(marker => marker.remove());
