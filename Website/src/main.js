@@ -12,6 +12,25 @@ import maplibregl from 'maplibre-gl';
 import { API_TOKEN } from './config.js';
 
 async function main () {
+  document.addEventListener('DOMContentLoaded', () => {
+    const modal = document.getElementById('introModal');
+    const startBtn = document.getElementById('startBtn');
+    const closeBtn = document.querySelector('.close-btn');
+  
+    startBtn.onclick = () => {
+      modal.style.display = 'none';
+    };
+  
+    closeBtn.onclick = () => {
+      modal.style.display = 'none';
+    };
+  
+    window.onclick = (event) => {
+      if (event.target === modal) {
+        modal.style.display = 'none';
+      }
+    };
+  });
   //Initialise Maplibre BaseMap
   const map = new Map({
     container: 'map',
