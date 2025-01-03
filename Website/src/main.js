@@ -155,17 +155,12 @@ const LSOALayer = new GeoJsonLayer({
       //   if(object){map.getCanvas().style.cursor = 'pointer';}
       //   else{map.getCanvas().style.cursor = 'grab';}
       // },
-      onClick: (info) => {
-        const {coordinate, object} = info;
+      onHover: (info) => {
+        const { coordinate, object } = info;
         if (object) {
           const properties = object.properties || {};
-          var count_text = null;
-          if (properties[months[month_idx]] == null) {
-            count_text = 'No data';
-          }
-          else {
-            count_text= properties[months[month_idx]];
-          }
+          let count_text = properties['Total'] != null ? properties['Total'] : 'No data';
+    
           const description = `
             <div>
               <h5>SafeBike Information</h5>
@@ -173,19 +168,25 @@ const LSOALayer = new GeoJsonLayer({
               <p><strong>LSOA Code:</strong> ${properties['LSOA Code']}</p>
               <p><strong>No. of Cases:</strong> ${count_text}</p>
             </div>`;
-  
-        //MapLibre Popup
+    
           const popup = document.getElementsByClassName('maplibregl-popup');
-          if ( popup.length ) {popup[0].remove();} //remove previous popup on open
-  
-          new Popup({closeOnClick: false, closeOnMove:true})
-              .setLngLat(coordinate)
-              .setHTML(description)
-              .addTo(map);
-          } else {
-            console.log('No feature clicked.');
+          if (popup.length) {
+            popup[0].remove();
           }
-      },
+          new Popup({ 
+            closeOnClick: false, 
+            closeOnMove: true,
+            closeButton: false })
+            .setLngLat(coordinate)
+            .setHTML(description)
+            .addTo(map);
+        } else {
+          const popup = document.getElementsByClassName('maplibregl-popup');
+          if (popup.length) {
+            popup[0].remove();
+          }
+        }
+      }
     })
 
     const newlayers=deckOverlay._deck.props.layers.map(layer => layer.id === 'colorArea' ? LSOALayer : layer);
