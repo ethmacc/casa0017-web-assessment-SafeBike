@@ -287,7 +287,7 @@ async function main () {
     .then(coords => {
       if (coords) {
         console.log(coords);
-        findBikeParking(coords); // 使用转换后的坐标
+        findBikeParking(coords); 
       } else {
         console.error('Could not find coordinates for the provided postcode.');
       }
@@ -425,8 +425,10 @@ async function main () {
 
   // Call ORS API to generate route
   function getRoute(start, end) {
-    const orsUrl = `https://api.openrouteservice.org/v2/directions/driving-car?api_key=${orsApiKey}&start=${start.join(',')}&end=${end.join(',')}`;
-
+    const orsUrl = `https://api.openrouteservice.org/v2/directions/cycling-regular?api_key=${orsApiKey}&start=${start.join(',')}&end=${end.join(',')}`;
+    console.log('Start:', start);
+    console.log('End:', end);
+    console.log('orsUrl API URL:', orsUrl);
     fetch(orsUrl)
       .then(response => response.json())
       .then((data) => {
@@ -471,7 +473,6 @@ async function main () {
   let bikeParkingMarkers = [];
   function findBikeParking(coords) {
     const overpassUrl = `https://overpass-api.de/api/interpreter?data=[out:json];node(around:2000,${coords[1]},${coords[0]})[amenity=bicycle_parking];out;`;
-    console.log('Overpass API URL:', overpassUrl);
     fetch(overpassUrl)
       .then(response => response.json())
       .then(data => {
