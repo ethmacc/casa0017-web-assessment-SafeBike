@@ -58,63 +58,61 @@ async function main () {
        '202312', '202401', '202402', '202403', '202404', '202405', '202406',
        '202407', '202408', '202409', 'Total']
 
-  const LSOALayer = new GeoJsonLayer({
-    id: 'colorArea',
-    data: colorArea, 
-    stroked: false, 
-    filled: true,
-    pickable: true,
-    lineWidthMinPixels: 1,
-    opacity: 0.3,
-    getFilterCategory:d=> d.properties['Borough Name'],
-    filterCategories:addArray,
-    updateTriggers: {
-      filterCategories:addArray
-    },
-    extensions: [new DataFilterExtension({ categorySize: addArray[0]==='all'? 0:1})],
-    getFillColor: colorContinuous({
-      attr: months[24],
-      domain: [0, 1, 2, 5, 10, 20, 50, 100],
-      colors: 'Geyser'
-    }),
-    beforeId: 'place_suburbs',
-    // onHover: info => {
-    //   const {coordinate,object} = info;
-    //   if(object){map.getCanvas().style.cursor = 'pointer';}
-    //   else{map.getCanvas().style.cursor = 'grab';}
-    // },
-    onClick: (info) => {
-      const {coordinate, object} = info;
-      if (object) {
-        const properties = object.properties || {};
-        var count_text = null;
-          if (properties['Total'] == null) {
-            count_text = 'No data';
-          }
-          else {
-            count_text= properties['Total'];
-          }
-        const description = `
-          <div>
-            <h5>SafeBike Information</h5>
-            <p><strong>LSOA Name:</strong> ${properties['LSOA Name']}</p>
-            <p><strong>LSOA Code:</strong> ${properties['LSOA Code']}</p>
-            <p><strong>No. of Cases:</strong> ${count_text}</p>
-          </div>`;
+const LSOALayer = new GeoJsonLayer({
+  id: 'colorArea',
+  data: colorArea,
+  stroked: false,
+  filled: true,
+  pickable: true,
+  lineWidthMinPixels: 1,
+  opacity: 0.3,
+  getFilterCategory: d => d.properties['Borough Name'],
+  filterCategories: addArray,
+  updateTriggers: {
+    filterCategories: addArray
+  },
+  extensions: [new DataFilterExtension({ categorySize: addArray[0] === 'all' ? 0 : 1 })],
+  getFillColor: colorContinuous({
+    attr: months[24],
+    domain: [0, 1, 2, 5, 10, 20, 50, 100],
+    colors: 'Geyser'
+  }),
+  beforeId: 'place_suburbs',
+  
+  onHover: (info) => {
+    const { coordinate, object } = info;
+    if (object) {
+      const properties = object.properties || {};
+      let count_text = properties['Total'] != null ? properties['Total'] : 'No data';
 
-      //MapLibre Popup
-        const popup = document.getElementsByClassName('maplibregl-popup');
-        if ( popup.length ) {popup[0].remove();} //remove previous popup on open
+      const description = `
+        <div>
+          <h5>SafeBike Information</h5>
+          <p><strong>LSOA Name:</strong> ${properties['LSOA Name']}</p>
+          <p><strong>LSOA Code:</strong> ${properties['LSOA Code']}</p>
+          <p><strong>No. of Cases:</strong> ${count_text}</p>
+        </div>`;
 
-        new Popup({closeOnClick: false, closeOnMove:true})
-            .setLngLat(coordinate)
-            .setHTML(description)
-            .addTo(map);
-        } else {
-          console.log('No feature clicked.');
-        }
-    },
-  })
+      const popup = document.getElementsByClassName('maplibregl-popup');
+      if (popup.length) {
+        popup[0].remove();
+      }
+      new Popup({ 
+        closeOnClick: false, 
+        closeOnMove: true,
+        closeButton: false })
+        .setLngLat(coordinate)
+        .setHTML(description)
+        .addTo(map);
+    } else {
+      const popup = document.getElementsByClassName('maplibregl-popup');
+      if (popup.length) {
+        popup[0].remove();
+      }
+    }
+  }
+});
+
   
   const deckOverlay = new MapboxOverlay({
       interleaved: true,
