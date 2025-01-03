@@ -87,12 +87,19 @@ async function main () {
       const {coordinate, object} = info;
       if (object) {
         const properties = object.properties || {};
+        var count_text = null;
+          if (properties['Total'] == null) {
+            count_text = 'No data';
+          }
+          else {
+            count_text= properties['Total'];
+          }
         const description = `
           <div>
             <h5>SafeBike Information</h5>
             <p><strong>LSOA Name:</strong> ${properties['LSOA Name']}</p>
             <p><strong>LSOA Code:</strong> ${properties['LSOA Code']}</p>
-            <p><strong>No. of Cases:</strong> ${properties['Total']}</p>
+            <p><strong>No. of Cases:</strong> ${count_text}</p>
           </div>`;
 
       //MapLibre Popup
@@ -154,12 +161,19 @@ async function main () {
         const {coordinate, object} = info;
         if (object) {
           const properties = object.properties || {};
+          var count_text = null;
+          if (properties[months[month_idx]] == null) {
+            count_text = 'No data';
+          }
+          else {
+            count_text= properties[months[month_idx]];
+          }
           const description = `
             <div>
               <h5>SafeBike Information</h5>
               <p><strong>LSOA Name:</strong> ${properties['LSOA Name']}</p>
               <p><strong>LSOA Code:</strong> ${properties['LSOA Code']}</p>
-              <p><strong>No. of Cases:</strong> ${properties[months[month_idx]]}</p>
+              <p><strong>No. of Cases:</strong> ${count_text}</p>
             </div>`;
   
         //MapLibre Popup
