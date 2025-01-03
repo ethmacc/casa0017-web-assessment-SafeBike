@@ -186,11 +186,49 @@ async function main () {
   //Dropdown event listener
   document.getElementById('family-dropdown').addEventListener('change', (event) => {
     const isChecked = document.querySelector('#totalCheck').checked;
+    console.log(event.target.value)
     if (isChecked) {
       updateFilter(event.target.value, document.getElementById('monthRange').value);
     }
     else {
       updateFilter(event.target.value, 24);
+    }
+    //Switch for zooming to fit each borough:
+    const borough_zoom = 11
+    switch(event.target.value) {
+      case 'all': map.flyTo({center: [-0.12262486445294093,51.50756471490389], essential: true, zoom:10}); break;
+      case "Barking and Dagenham": map.flyTo({center: [0.134, 51.5541], essential: true, zoom:borough_zoom}); break;
+      case "Barnet": map.flyTo({center: [-0.2076, 51.6050], essential: true, zoom:borough_zoom}); break;
+      case "Bexley": map.flyTo({center: [0.1172, 51.4519], essential: true, zoom:borough_zoom}); break;
+      case "Brent": map.flyTo({center: [-0.2860, 51.5571], essential: true, zoom:borough_zoom}); break;
+      case "Bromley": map.flyTo({center: [0.0187, 51.4063], essential: true, zoom:borough_zoom}); break;
+      case "Camden": map.flyTo({center: [-0.1426, 51.5390], essential: true, zoom:borough_zoom}); break;
+      case "Croydon": map.flyTo({center: [-0.0957, 51.3770], essential: true, zoom:borough_zoom}); break;
+      case "Ealing": map.flyTo({center: [-0.3043, 51.5133], essential: true, zoom:borough_zoom}); break;
+      case "Enfield": map.flyTo({center: [-0.0807, 51.6523], essential: true, zoom:borough_zoom}); break;
+      case "Greenwich": map.flyTo({center: [0.0098, 51.4934], essential: true, zoom:borough_zoom}); break;
+      case "Hackney": map.flyTo({center: [-0.0597, 51.5495], essential: true, zoom:borough_zoom}); break;
+      case "Hammersmith and Fulham": map.flyTo({center: [-0.2379, 51.5000], essential: true, zoom:borough_zoom}); break;
+      case "Haringey": map.flyTo({center: [-0.1033, 51.5905], essential: true, zoom:borough_zoom}); break;
+      case "Harrow": map.flyTo({center: [-0.3421, 51.5805], essential: true, zoom:borough_zoom}); break;
+      case "Havering": map.flyTo({center: [0.2121, 51.5779], essential: true, zoom:borough_zoom}); break;
+      case "Hillingdon": map.flyTo({center: [-0.4481, 51.5352], essential: true, zoom:borough_zoom}); break;
+      case "Hounslow": map.flyTo({center: [-0.3632, 51.4704], essential: true, zoom:borough_zoom}); break;
+      case "Islington": map.flyTo({center: [-0.1028, 51.5386], essential: true, zoom:borough_zoom}); break;
+      case "Kensington and Chelsea": map.flyTo({center: [-0.1938, 51.4991], essential: true, zoom:borough_zoom}); break;
+      case "Kingston upon Thames": map.flyTo({center: [-0.3007, 51.4123], essential: true, zoom:borough_zoom}); break;
+      case "Lambeth": map.flyTo({center: [-0.1178, 51.4935], essential: true, zoom:borough_zoom}); break;
+      case "Lewisham": map.flyTo({center: [-0.0201, 51.4446], essential: true, zoom:borough_zoom}); break;
+      case "Merton": map.flyTo({center: [-0.1943, 51.3948], essential: true, zoom:borough_zoom}); break;
+      case "Newham": map.flyTo({center: [0.0294, 51.5259], essential: true, zoom:borough_zoom}); break;
+      case "Redbridge": map.flyTo({center: [0.0508, 51.5748], essential: true, zoom:borough_zoom}); break;
+      case "Richmond upon Thames": map.flyTo({center: [-0.3035, 51.4613], essential: true, zoom:borough_zoom}); break;
+      case "Southwark": map.flyTo({center: [-0.0877, 51.5028], essential: true, zoom:borough_zoom}); break;
+      case "Sutton": map.flyTo({center: [-0.1940, 51.3614], essential: true, zoom:borough_zoom}); break;
+      case "Tower Hamlets": map.flyTo({center: [-0.0347, 51.5251], essential: true, zoom:borough_zoom}); break;
+      case "Waltham Forest": map.flyTo({center: [-0.0174, 51.5902], essential: true, zoom:borough_zoom}); break;
+      case "Wandsworth": map.flyTo({center: [-0.1891, 51.4584], essential: true, zoom:borough_zoom}); break;
+      case "Westminster": map.flyTo({center: [-0.1357, 51.4975], essential: true, zoom:borough_zoom}); break;
     }
   });
 
@@ -201,7 +239,7 @@ async function main () {
     updateFilter(document.getElementById('family-dropdown').value, document.getElementById('monthRange').value);
   };
 
-  //Total checkbox
+  //Total checkbox function on input
   document.getElementById('totalCheck').oninput = function() {
     const isChecked = document.querySelector('#totalCheck').checked;
     const date = months[document.getElementById('monthRange').value]
