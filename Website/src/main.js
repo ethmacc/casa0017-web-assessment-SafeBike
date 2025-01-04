@@ -13,21 +13,21 @@ import { API_TOKEN } from './config.js';
 
 async function main () {
   document.addEventListener('DOMContentLoaded', () => {
-    const modal = document.getElementById('introModal');
+    const guide = document.getElementById('userGuide');
     const startBtn = document.getElementById('startBtn');
     const closeBtn = document.querySelector('.close-btn');
   
     startBtn.onclick = () => {
-      modal.style.display = 'none';
+      guide.style.display = 'none';
     };
   
     closeBtn.onclick = () => {
-      modal.style.display = 'none';
+      guide.style.display = 'none';
     };
   
     window.onclick = (event) => {
       if (event.target === modal) {
-        modal.style.display = 'none';
+        guide.style.display = 'none';
       }
     };
   });

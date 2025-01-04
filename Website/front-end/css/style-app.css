@@ -101,7 +101,7 @@ body{
     position: relative;
 }
 
-.modal {
+.guide {
     display: block;
     position: fixed;
     z-index: 1000;
@@ -113,7 +113,7 @@ body{
     background-color: rgba(0, 0, 0, 0.6);
 }
 
-.modal-content {
+.guide-content {
     position: relative;
     background-color: #fefefe;
     margin: 10% auto;
@@ -125,9 +125,9 @@ body{
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
-.modal-content h2, 
-.modal-content h3,
-.modal-content p {
+.guide-content h2, 
+.guide-content h3,
+.guide-content p {
     margin: 10px 0;
 }
 
