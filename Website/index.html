@@ -9,6 +9,7 @@
 	      <link rel='stylesheet' href='front-end/css/style-home.css' type='text/css'/>
         <script src="https://kit.fontawesome.com/f37af56dcd.js" crossorigin="anonymous"></script>
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" integrity="sha384-tViUnnbYAV00FLIhhi3v/dWt3Jxw4gZQcNoSCxCIFNJVCx7/D55/wXsrNIRANwdD" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
     </head>
     <body>
         <nav class="navbar navbar-expand-lg bg-body-tertiary fixed-top">
@@ -42,9 +43,9 @@
             <source src="front-end/video/biking.mov" type="video/mp4" />
           </video>
           <div class="landing-content">
-            <h1 class="fw-bold display-1 text-white"> SAFEBIKE</h1>
-            <h3 class="fw-bold text-white">Your Bike is Safe With Us</h3>
-            <div>
+            <h1 class="fw-bold display-1 text-white"data-aos="fade-right" data-aos-delay="500" > SAFEBIKE</h1>
+            <h3 class="fw-bold text-white"data-aos="fade-up">Your Bike is Safe With Us</h3>
+            <div data-aos="fade-up" data-aos-delay="500">
               <a href="app.html" class="btn btn-primary fw-semibold">Dive Right In</a>
               <a href="https://github.com/ethmacc/casa0017-web-assessment-SafeBike" class="btn btn-light fw-semibold">Our
                 GitHub</a>
@@ -70,10 +71,16 @@
         <section id="about">
           <div class="container">
             <div class="row">
-              <div class ="col-12 text-center">
+              <div class ="col-12 text-center"data-aos="fade-down" data-aos-delay="100">
                 <div class="AboutHeading">
-                  <h1 class="fw-semibold display-4">About SafeBike</h1>
-                  <p>The website aims to provide an interactive tool through which tourists, students, and other Londoners can explore and inform themselves about bicycle theft and the risk levels of different boroughs.</p>
+                  <h1 class="fw-bold display-4">About SafeBike</h1>
+                  <p h1 class="fw-semibold"> In 2023/2024 there were
+                    <a href="https://www.statista.com/statistics/303562/bicycle-theft-in-england-and-wales-uk-y-on-y/" target = "_blank"> 66,960</a> reported incidents of bicycle theft across England and Wales. Even though this represents a slight drop from the 2022/2023 figures of <a href="https://www.statista.com/statistics/303562/bicycle-theft-in-england-and-wales-uk-y-on-y/" target = "_blank"> 77,170</a>, it remains a signifcant issue. If left unaddressed, this crime could potentially discourage people from cycling in London, undermining efforts to promote sustainable transportation and reduced carbon emissions in the capital. Through SafeBike, we aim to inform people of bicycle theft hotspots, so cyclists can take better preventative measures against the crime.
+                    SafeBike is a web application that innovatively visualises bicycle theft crime statistics in London 
+                   through a visually interactive map. 
+                    This is powered by a data driven backend that utilises Node.js, allowing users
+                  to access historic Metropolitan Police Data from the last 24 months specifically on bicycle theft. These statistics are broken down into 
+                Lower Layer Super Output Areas (LSOAs) and Boroughs, making it easier to identify different trends and patterns of bike theft in London.</p>
                 </div>
               </div>
             </div>
@@ -84,9 +91,7 @@
             <div class="col-lg-5">
               <h5 class="fw-semibold display-6">How SafeBike Helps You</h5>
               <p>Thousands of Bikes are stolen in London each year and currently
-                this crime is mostly recorded through numerical figures. SafeBike innovatively presents this information  
-                through a visually interactive map making it easier identify
-                patterns and trends of bicycle theft within different LSOA's of London Boroughs.
+                t.
               </p>
               <div class="d-flex pt-3 mb-4">
               <div class="iconbox me-5">
@@ -131,7 +136,7 @@
         
         <!-- About Us -->
         <div class="AboutHeading">
-          <h1 class="fw-semibold display-4">About Us</h1>
+          <h1 class="fw-semibold display-4">Meet The Team</h1>
         </div>
         <div id="card-container">
           <div class="card">
@@ -354,7 +359,10 @@
 
         
           
-
+      <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+      <script>
+        AOS.init();
+      </script>
 
     </body>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
