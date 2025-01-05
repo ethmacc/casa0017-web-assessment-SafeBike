@@ -37,7 +37,7 @@ async function main () {
     style: BASEMAP.POSITRON,
     interactive: true,
     center:[-0.12262486445294093,51.50756471490389],
-    zoom: 10
+    zoom: 9
   });
 
   //wait until map is loaded before loading data
@@ -83,6 +83,8 @@ const LSOALayer = new GeoJsonLayer({
   stroked: false,
   filled: true,
   pickable: true,
+  autoHighlight: true,
+  highlightColor: [255, 0, 0],
   lineWidthMinPixels: 1,
   opacity: 0.3,
   getFilterCategory: d => d.properties['Borough Name'],
@@ -158,6 +160,8 @@ const LSOALayer = new GeoJsonLayer({
       stroked: false, 
       filled: true,
       pickable: true,
+      autoHighlight: true,
+      highlightColor: [255, 0, 0],
       lineWidthMinPixels: 1,
       opacity: 0.3,
       getFilterCategory:d=> d.properties['Borough Name'],

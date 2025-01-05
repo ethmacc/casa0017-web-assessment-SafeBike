@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <style>
+    #vis.vega-embed {
+      width: 100%;
+      display: flex;
+    }
+
+    #vis.vega-embed details,
+    #vis.vega-embed details summary {
+      position: relative;
+    }
+  </style>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/vega@5"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/vega-lite@5.20.1"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/vega-embed@6"></script>
+</head>
+<body>
+  <div id="vis"></div>
+  <script>
+    (function(vegaEmbed) {
+      var spec = {"config": {"view": {"continuousWidth": 300, "continuousHeight": 300}}, "layer": [{"mark": {"type": "line"}, "encoding": {"x": {"axis": {"format": "%B %Y", "labelAngle": 80, "tickCount": 24}, "field": "Months", "scale": {"domain": [{"year": 2022, "month": 9, "date": 1}, {"year": 2024, "month": 10, "date": 1}]}, "type": "temporal"}, "y": {"field": "Total thefts", "type": "quantitative"}}}, {"mark": {"type": "point"}, "encoding": {"opacity": {"value": 0}, "x": {"field": "Months", "type": "temporal"}}, "name": "view_39"}, {"mark": {"type": "point"}, "encoding": {"opacity": {"condition": [{"param": "param_50", "value": 1, "empty": false}], "value": 0}, "x": {"axis": {"format": "%B %Y", "labelAngle": 80, "tickCount": 24}, "field": "Months", "scale": {"domain": [{"year": 2022, "month": 9, "date": 1}, {"year": 2024, "month": 10, "date": 1}]}, "type": "temporal"}, "y": {"field": "Total thefts", "type": "quantitative"}}}, {"mark": {"type": "rule", "color": "gray"}, "encoding": {"x": {"field": "Months", "type": "temporal"}}, "transform": [{"filter": {"param": "param_50", "empty": false}}]}, {"mark": {"type": "text", "align": "left", "dx": 5, "dy": -5}, "encoding": {"text": {"condition": {"param": "param_50", "empty": false, "field": "Total thefts"}, "value": " "}, "x": {"axis": {"format": "%B %Y", "labelAngle": 80, "tickCount": 24}, "field": "Months", "scale": {"domain": [{"year": 2022, "month": 9, "date": 1}, {"year": 2024, "month": 10, "date": 1}]}, "type": "temporal"}, "y": {"field": "Total thefts", "type": "quantitative"}}}], "data": {"name": "data-6a52d059280b4e5722746675c31fe7f0"}, "height": 300, "params": [{"name": "param_50", "select": {"type": "point", "fields": ["Months"], "nearest": true, "on": "pointerover"}, "views": ["view_39"]}], "width": 600, "$schema": "https://vega.github.io/schema/vega-lite/v5.20.1.json", "datasets": {"data-6a52d059280b4e5722746675c31fe7f0": [{"Total thefts": 1696.0, "Months": "2022-10-01T00:00:00"}, {"Total thefts": 1398.0, "Months": "2022-11-01T00:00:00"}, {"Total thefts": 799.0, "Months": "2022-12-01T00:00:00"}, {"Total thefts": 950.0, "Months": "2023-01-01T00:00:00"}, {"Total thefts": 1043.0, "Months": "2023-02-01T00:00:00"}, {"Total thefts": 1109.0, "Months": "2023-03-01T00:00:00"}, {"Total thefts": 1125.0, "Months": "2023-04-01T00:00:00"}, {"Total thefts": 1499.0, "Months": "2023-05-01T00:00:00"}, {"Total thefts": 1619.0, "Months": "2023-06-01T00:00:00"}, {"Total thefts": 1609.0, "Months": "2023-07-01T00:00:00"}, {"Total thefts": 1475.0, "Months": "2023-08-01T00:00:00"}, {"Total thefts": 1659.0, "Months": "2023-09-01T00:00:00"}, {"Total thefts": 1488.0, "Months": "2023-10-01T00:00:00"}, {"Total thefts": 1169.0, "Months": "2023-11-01T00:00:00"}, {"Total thefts": 937.0, "Months": "2023-12-01T00:00:00"}, {"Total thefts": 963.0, "Months": "2024-01-01T00:00:00"}, {"Total thefts": 1102.0, "Months": "2024-02-01T00:00:00"}, {"Total thefts": 1210.0, "Months": "2024-03-01T00:00:00"}, {"Total thefts": 1199.0, "Months": "2024-04-01T00:00:00"}, {"Total thefts": 1378.0, "Months": "2024-05-01T00:00:00"}, {"Total thefts": 1428.0, "Months": "2024-06-01T00:00:00"}, {"Total thefts": 1447.0, "Months": "2024-07-01T00:00:00"}, {"Total thefts": 1478.0, "Months": "2024-08-01T00:00:00"}, {"Total thefts": 1408.0, "Months": "2024-09-01T00:00:00"}]}};
+      var embedOpt = {"mode": "vega-lite"};
+
+      function showError(el, error){
+          el.innerHTML = ('<div style="color:red;">'
+                          + '<p>JavaScript Error: ' + error.message + '</p>'
+                          + "<p>This usually means there's a typo in your chart specification. "
+                          + "See the javascript console for the full traceback.</p>"
+                          + '</div>');
+          throw error;
+      }
+      const el = document.getElementById('vis');
+      vegaEmbed("#vis", spec, embedOpt)
+        .catch(error => showError(el, error));
+    })(vegaEmbed);
+
+  </script>
+</body>
+</html>
