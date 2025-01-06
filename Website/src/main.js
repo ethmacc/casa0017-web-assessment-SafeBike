@@ -232,7 +232,7 @@ const LSOALayer = new GeoJsonLayer({
     //Switch for zooming to fit each borough:
     const borough_zoom = 11
     switch(event.target.value) {
-      case 'all': map.flyTo({center: [-0.12262486445294093,51.50756471490389], essential: true, zoom:10}); break;
+      case 'all': map.flyTo({center: [-0.12262486445294093,51.50756471490389], essential: true, zoom:9}); break;
       case "Barking and Dagenham": map.flyTo({center: [0.134, 51.5541], essential: true, zoom:borough_zoom}); break;
       case "Barnet": map.flyTo({center: [-0.2076, 51.6050], essential: true, zoom:borough_zoom}); break;
       case "Bexley": map.flyTo({center: [0.1172, 51.4519], essential: true, zoom:borough_zoom}); break;
