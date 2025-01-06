@@ -172,3 +172,19 @@ body{
 #startBtn:hover {
     background-color: #0056b3;
 }
+
+/* Styles for altair-vega charts */
+#vis.vega-embed {
+    width: 100%;
+    display: flex;
+  }
+
+  #vis.vega-embed details,
+  #vis.vega-embed details summary {
+    position: relative;
+  }
+
+#popover_btn {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
