@@ -188,3 +188,11 @@ body{
     margin-top: 10px;
     margin-bottom: 10px;
 }
+
+.row {
+    margin: 0px;
+}
+
+#controlPanel {
+    min-width: 22em;
+}
