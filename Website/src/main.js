@@ -26,7 +26,7 @@ async function main () {
     };
   
     window.onclick = (event) => {
-      if (event.target === modal) {
+      if (event.target === guide) {
         guide.style.display = 'none';
       }
     };
@@ -448,9 +448,6 @@ const LSOALayer = new GeoJsonLayer({
   // Call ORS API to generate route
   function getRoute(start, end) {
     const orsUrl = `https://api.openrouteservice.org/v2/directions/cycling-regular?api_key=${orsApiKey}&start=${start.join(',')}&end=${end.join(',')}`;
-    console.log('Start:', start);
-    console.log('End:', end);
-    console.log('orsUrl API URL:', orsUrl);
     fetch(orsUrl)
       .then(response => response.json())
       .then((data) => {

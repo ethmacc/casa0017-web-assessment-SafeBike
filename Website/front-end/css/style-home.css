@@ -128,7 +128,8 @@
      align-items: center;
      justify-content: center;
      flex: none;
-     font-size: 48px;
+     font-size: 30px;
+     background-color: rgba(20, 142, 236, 0.291);
  }
 
 
