@@ -14,19 +14,12 @@ body{
     width: 100%;
 }
 
-#container {
+#map {
     position: fixed;
     top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    }
-    
-#map {
-    position: absolute;
-    top: 0;
-    bottom: 0;
+    bottom:0;
     width: 100%;
+    z-index:0;
     }
 
 .navbar {
@@ -193,6 +186,21 @@ body{
     margin: 0px;
 }
 
-#controlPanel {
+#uiCard {
+    min-width: 18em;
+}
+
+#chartCard {
     min-width: 22em;
+}
+
+/*Responsive styles*/
+@media (max-width: 575.98px) {
+    #trendsCard {
+        display: none;
+    }
+
+    .guide-content {
+        width: 80%;
+    }
 }

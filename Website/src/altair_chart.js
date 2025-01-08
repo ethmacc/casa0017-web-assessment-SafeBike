@@ -60,19 +60,29 @@ document.getElementById('family-dropdown').addEventListener('change', (event) =>
     $( "#chartTitle" ).text(event.target.value);
   }
 
-  (function(vegaEmbed) {
-    var embedOpt = {"mode": "vega-lite"};
+  if (event.target.value == 'City of London') {
+    $( "#vis" ).css("display", "none");
+    $( "#noData" ).css("display", "inline");
+  }
+  else  {
+    $( "#vis" ).css("display", "inline");
+    $( "#noData" ).css("display", "none");
+    (function(vegaEmbed) {
+      var embedOpt = {"mode": "vega-lite"};
+  
+      function showError(el, error){
+          el.innerHTML = ('<div style="color:red;">'
+                          + '<p>JavaScript Error: ' + error.message + '</p>'
+                          + "<p>This usually means there's a typo in your chart specification. "
+                          + "See the javascript console for the full traceback.</p>"
+                          + '</div>');
+          throw error;
+      }
+      const el = document.getElementById('vis');
+      vegaEmbed("#vis", borough_spec, embedOpt)
+        .catch(error => showError(el, error));
+    })(vegaEmbed);
+  }
 
-    function showError(el, error){
-        el.innerHTML = ('<div style="color:red;">'
-                        + '<p>JavaScript Error: ' + error.message + '</p>'
-                        + "<p>This usually means there's a typo in your chart specification. "
-                        + "See the javascript console for the full traceback.</p>"
-                        + '</div>');
-        throw error;
-    }
-    const el = document.getElementById('vis');
-    vegaEmbed("#vis", borough_spec, embedOpt)
-      .catch(error => showError(el, error));
-  })(vegaEmbed);
+  
 });

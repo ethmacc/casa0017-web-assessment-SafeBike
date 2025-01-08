@@ -239,6 +239,7 @@ const LSOALayer = new GeoJsonLayer({
       case "Brent": map.flyTo({center: [-0.2860, 51.5571], essential: true, zoom:borough_zoom}); break;
       case "Bromley": map.flyTo({center: [0.0187, 51.4063], essential: true, zoom:borough_zoom}); break;
       case "Camden": map.flyTo({center: [-0.1426, 51.5390], essential: true, zoom:borough_zoom}); break;
+      case "City of London": map.flyTo({center: [-0.1276, 51.5072], essential: true, zoom:borough_zoom}); break;
       case "Croydon": map.flyTo({center: [-0.0957, 51.3770], essential: true, zoom:borough_zoom}); break;
       case "Ealing": map.flyTo({center: [-0.3043, 51.5133], essential: true, zoom:borough_zoom}); break;
       case "Enfield": map.flyTo({center: [-0.0807, 51.6523], essential: true, zoom:borough_zoom}); break;
