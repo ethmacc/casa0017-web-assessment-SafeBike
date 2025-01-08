@@ -42,6 +42,42 @@
         </div>
     </nav>
 
+
+    <div class="container">
+
+        <div class="section-block">
+            <div class="title-block">
+                <h2>Data Sources</h2>
+            </div>
+            <div class="content-block">
+                <p>
+                    The primary source of data for this project was the MPS Recorded Crime, broken down by Lower layer Super Output Area (LSOA). The dataset was provided by the Metropolitan Police via the London Datastore website (). LSOAs are smaller geographic boundaries in London, each containing between 400-1200 households and between 1000-3000 residents (). As such, they provide much greater granularity compared to larger, but more familiar geographic boundaries such as the boroughs of London. 
+                </p>
+                <p>
+                    The dataset contains a count of the number of incidents of different types of crime for each LSOA over a 24 month period, therefore, it needed to be preprocessed before it could be loaded into the backend of the website.
+                </p>
+            </div>
+        </div>
+
+        <hr class="section-divider" />
+
+        <div class="section-block">
+            <div class="title-block">
+                <h2>Data Processing</h2>
+            </div>
+            <div class="content-block">
+                <p>
+                    The first stage of data processing involved filtering out all data for unrelated crimes. This was done using a Jupyter notebook, and Python’s Pandas library made quick work of the task. Secondly, the actual coordinates for the boundaries of each LSOA was missing from the data, therefore this had to be sourced from the London Datastore, () loaded into the Jupyter notebook with Geopandas, and merged with the filtered MPS dataset.
+                <p>
+                    Once this was done, the totals for each LSOA were precomputed into a new column to reduce the amount of dynamic processing needed and the finished dataframe was exported as a .geojson file.
+                </p>
+            </div>
+        </div>
+
+    </div>
+
+
+
 </body>
 
 </html>
