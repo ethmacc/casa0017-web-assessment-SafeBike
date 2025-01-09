@@ -182,7 +182,7 @@ const LSOALayer = new GeoJsonLayer({
         const { coordinate, object } = info;
         if (object) {
           const properties = object.properties || {};
-          let count_text = properties['Total'] != null ? properties['Total'] : 'No data';
+          let count_text = properties[months[month_idx]] != null ? properties[months[month_idx]] : 'No data';
     
           const description = `
             <div>
