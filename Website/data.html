@@ -48,14 +48,12 @@
         <div class="section-block">
             <div class="title-block">
                 <h2>Data Sources</h2>
+                <img src="front-end/img/police-icon.jpeg" alt="" class="below-title">
             </div>
             <div class="content-block">
-                <p>
-                    The primary source of data for this project was the MPS Recorded Crime, broken down by Lower layer Super Output Area (LSOA). The dataset was provided by the Metropolitan Police via the London Datastore website (). LSOAs are smaller geographic boundaries in London, each containing between 400-1200 households and between 1000-3000 residents (). As such, they provide much greater granularity compared to larger, but more familiar geographic boundaries such as the boroughs of London. 
-                </p>
-                <p>
-                    The dataset contains a count of the number of incidents of different types of crime for each LSOA over a 24 month period, therefore, it needed to be preprocessed before it could be loaded into the backend of the website.
-                </p>
+              <p>
+                The project primarily utilized data from the MPS Recorded Crime, detailed by Lower Layer Super Output Areas (LSOAs) in London, obtained from the Metropolitan Police via the London Datastore. LSOAs, containing 400-1200 households and 1000-3000 residents, offer detailed geographic granularity compared to larger areas like boroughs. This dataset included crime incident counts across different types for each LSOA over two years, necessitating preprocessing before website integration.
+              </p>
             </div>
         </div>
 
@@ -66,11 +64,9 @@
                 <h2>Data Processing</h2>
             </div>
             <div class="content-block">
-                <p>
-                    The first stage of data processing involved filtering out all data for unrelated crimes. This was done using a Jupyter notebook, and Python’s Pandas library made quick work of the task. Secondly, the actual coordinates for the boundaries of each LSOA was missing from the data, therefore this had to be sourced from the London Datastore, () loaded into the Jupyter notebook with Geopandas, and merged with the filtered MPS dataset.
-                <p>
-                    Once this was done, the totals for each LSOA were precomputed into a new column to reduce the amount of dynamic processing needed and the finished dataframe was exported as a .geojson file.
-                </p>
+              <p>
+                Initial steps involved using a Jupyter notebook and Python's Pandas library to filter out irrelevant crime data. Additionally, LSOA boundary coordinates were absent and had to be sourced from the London Datastore, integrated using Geopandas, and merged with the MPS data. Precomputed totals for each LSOA were added to a new column to minimize dynamic processing. The final processed data was exported as a .geojson file.
+              </p>
             </div>
         </div>
 
