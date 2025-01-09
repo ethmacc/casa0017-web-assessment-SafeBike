@@ -44,7 +44,7 @@ async function main () {
   await map.once('load');
 
   //Add data
-  const colorArea = '../data_processing/lsoa21.geojson'
+  const colorArea = '../lsoa21.geojson'
   //still working, working on data processing
 
   //Data filtering - populate dropdown

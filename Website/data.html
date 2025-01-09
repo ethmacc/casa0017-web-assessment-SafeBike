@@ -53,7 +53,7 @@
             </div>
             <div class="content-block">
               <p>
-                The project primarily utilized data from the MPS Recorded Crime, detailed by Lower Layer Super Output Areas (LSOAs) in London, obtained from the Metropolitan Police via the London Datastore. LSOAs, containing 400-1200 households and 1000-3000 residents, offer detailed geographic granularity compared to larger areas like boroughs. This dataset included crime incident counts across different types for each LSOA over two years, necessitating preprocessing before website integration.
+                The project primarily utilized data from the <a href="https://data.london.gov.uk/dataset/recorded_crime_summary" target = "_blank" class="card-link">MPS Recorded Crime dataset</a>, broken down by Lower Layer Super Output Areas (LSOAs). This dataset comprises of incident counts of all types of crimes over a two year period. To ensure its relevance to cyclists and bike owners, our team carried out significant preprocessing before visualising the data.
               </p>
             </div>
         </div>
@@ -66,7 +66,7 @@
             </div>
             <div class="content-block">
               <p>
-                Initial steps involved using a Jupyter notebook and Python's Pandas library to filter out irrelevant crime data. Additionally, LSOA boundary coordinates were absent and had to be sourced from the London Datastore, integrated using Geopandas, and merged with the MPS data. Precomputed totals for each LSOA were added to a new column to minimize dynamic processing. The final processed data was exported as a .geojson file.
+                Heavy duty data-science tools such as Python and its fantastic libraries were used by our team to filter out irrelevant crime data. Our team then merged the filtered dataset with the GIS boundaries of each LSOA. The final merged dataset forms the basis of this web application's data-driven backend.
               </p>
             </div>
         </div>

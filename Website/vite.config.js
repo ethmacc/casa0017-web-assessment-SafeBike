@@ -5,6 +5,8 @@ export default {
         input: {
           main: 'index.html',
           app: 'app.html',
+          data: 'data.html',
+          contact: 'contact.html',
         }
       }
     }
