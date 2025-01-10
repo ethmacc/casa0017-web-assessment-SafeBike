@@ -45,6 +45,7 @@ async function main () {
 
   //Add data
   const colorArea = '../lsoa21.geojson'
+  const boroughs = '../borough.geojson'
   //still working, working on data processing
 
   //Data filtering - populate dropdown
@@ -52,18 +53,18 @@ async function main () {
   await loadJsonAndPopulateDropdown()
 
   function loadJsonAndPopulateDropdown() {
-    fetch(colorArea)
+    fetch(boroughs)
       .then(response => response.json())
       .then(data => {
         const dropdown = document.getElementById('family-dropdown');
 
         console.log(data);
         data.features.forEach(item => {
-          if (item.properties['Borough Name'] && !addArray.includes(item.properties['Borough Name'])) {
-            addArray.push(item.properties['Borough Name']);
+          if (item.properties['name'] && !addArray.includes(item.properties['name'])) {
+            addArray.push(item.properties['name']);
             const option = document.createElement('option');
-            option.value = item.properties['Borough Name'];
-            option.textContent = item.properties['Borough Name'];
+            option.value = item.properties['name'];
+            option.textContent = item.properties['name'];
             dropdown.appendChild(option);
           }
         });
@@ -87,12 +88,7 @@ const LSOALayer = new GeoJsonLayer({
   highlightColor: [255, 0, 0],
   lineWidthMinPixels: 1,
   opacity: 0.3,
-  getFilterCategory: d => d.properties['Borough Name'],
-  filterCategories: addArray,
-  updateTriggers: {
-    filterCategories: addArray
-  },
-  extensions: [new DataFilterExtension({ categorySize: addArray[0] === 'all' ? 0 : 1 })],
+  transitions: {getFillColor:500},
   getFillColor: colorContinuous({
     attr: months[24],
     domain: [0, 1, 2, 5, 10, 20, 50, 100],
@@ -134,11 +130,29 @@ const LSOALayer = new GeoJsonLayer({
   }
 });
 
+const boroughLayer = new GeoJsonLayer({
+  id: 'boroughs',
+  data: boroughs, 
+  stroked: false, 
+  filled:false,
+  lineWidthMinPixels: 2,
+  opacity: 1,
+  getFilterCategory:d=> d.properties['name'],
+  filterCategories:addArray,
+  getLineColor: [0, 0, 0],
+  transitions: {},
+  updateTriggers: {
+    getFilterCategory: addArray
+  },
+  beforeId: 'place_suburbs',
+  extensions: [new DataFilterExtension({ categorySize: addArray[0]==='all'? 0:1})],
+});
   
   const deckOverlay = new MapboxOverlay({
       interleaved: true,
       layers: [
         LSOALayer,
+        boroughLayer
       ]
   });
 
@@ -164,14 +178,15 @@ const LSOALayer = new GeoJsonLayer({
       highlightColor: [255, 0, 0],
       lineWidthMinPixels: 1,
       opacity: 0.3,
-      getFilterCategory:d=> d.properties['Borough Name'],
-      filterCategories:addArray,
+      //getFilterCategory:d=> d.properties['Borough Name'],
+      //filterCategories:addArray,
       getFillColor: colormap,
+      transitions: {getFillColor:500},
       updateTriggers: {
-        filterCategories:addArray,
+        //filterCategories:addArray,
         getFillColor: colormap,
       },
-      extensions: [new DataFilterExtension({ categorySize: addArray[0]==='all'? 0:1})],
+      //extensions: [new DataFilterExtension({ categorySize: addArray[0]==='all'? 0:1})],
       beforeId: 'place_suburbs',
       // onHover: info => {
       //   const {coordinate,object} = info;
@@ -210,12 +225,34 @@ const LSOALayer = new GeoJsonLayer({
           }
         }
       }
-    })
+    });
 
-    const newlayers=deckOverlay._deck.props.layers.map(layer => layer.id === 'colorArea' ? LSOALayer : layer);
+    const boroughLayer = new GeoJsonLayer({
+      id: 'boroughs',
+      data: boroughs, 
+      stroked: selectedFamilyValue==='all' ? false:true, 
+      filled:false,
+      lineWidthMinPixels: 2,
+      opacity: 1,
+      getFilterCategory:d=> d.properties['name'],
+      filterCategories:addArray,
+      getLineColor: [0, 0, 0],
+      transitions: {},
+      updateTriggers: {
+        getFilterCategory: addArray
+      },
+      beforeId: 'place_suburbs',
+      extensions: [new DataFilterExtension({ categorySize: addArray[0]==='all'? 0:1})],
+    });
+      
 
+    const newlayer1=deckOverlay._deck.props.layers.map(layer => layer.id === 'colorArea' ? LSOALayer : layer);
     deckOverlay.setProps({
-      layers: newlayers
+      layers: newlayer1
+    });
+    const newlayer2=deckOverlay._deck.props.layers.map(layer => layer.id === 'boroughs' ? boroughLayer : layer);
+    deckOverlay.setProps({
+      layers: newlayer2
     })
   }
 
