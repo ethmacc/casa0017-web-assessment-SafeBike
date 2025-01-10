@@ -10,6 +10,7 @@ import { DataFilterExtension } from '@deck.gl/extensions';
 
 import maplibregl from 'maplibre-gl';
 import { API_TOKEN } from './config.js';
+import * as turf from '@turf/turf';
 
 async function main () {
   document.addEventListener('DOMContentLoaded', () => {
@@ -528,35 +529,90 @@ const boroughLayer = new GeoJsonLayer({
   let bikeParkingMarkers = [];
   function findBikeParking(coords) {
     const overpassUrl = `https://overpass-api.de/api/interpreter?data=[out:json];node(around:2000,${coords[1]},${coords[0]})[amenity=bicycle_parking];out;`;
-    fetch(overpassUrl)
+    console.log(overpassUrl);
+    fetch('../lsoa21.geojson') 
       .then(response => response.json())
-      .then(data => {
-        // Calculate distance
-        const elementsWithDistance = data.elements.map(element => {
-          const distance = calculateDistance(coords, [element.lon, element.lat]);
-          return { ...element, distance };
-        });
-        // Sort by distance
-        elementsWithDistance.sort((a, b) => a.distance - b.distance);
-        // nearest 10
-        const nearest10 = elementsWithDistance.slice(0, 10);
-        nearest10.forEach(element => {
-          const markerEl = document.createElement('div');
-          markerEl.className = 'bikeParkingMarker';
-          const marker = new Marker({
-            element: markerEl,
-            anchor: 'bottom' 
+      .then(geojsonData => {
+        fetch(overpassUrl)
+          .then(response => response.json())
+          .then(data => {
+            // Calculate distance
+            const elementsWithDistance = data.elements.map(element => {
+              const distance = calculateDistance(coords, [element.lon, element.lat]);
+              return { ...element, distance };
+            });
+
+            elementsWithDistance.sort((a, b) => a.distance - b.distance);
+            const nearest = elementsWithDistance.slice(0, 10);
+
+            const popupContainer = document.getElementById('bikeParkingPopup');
+            if (popupContainer) {
+              // Clear previous content
+              popupContainer.innerHTML = '';
+            } else {
+              // Create popup container if it doesn't exist
+              const newPopupContainer = document.createElement('div');
+              newPopupContainer.id = 'bikeParkingPopup';
+              newPopupContainer.style.position = 'absolute';
+              newPopupContainer.style.top = '150px';
+              newPopupContainer.style.right = '10px';
+              newPopupContainer.style.padding = '10px';
+              newPopupContainer.style.backgroundColor = 'white';
+              newPopupContainer.style.border = '1px solid #ccc';
+              newPopupContainer.style.borderRadius = '5px';
+              newPopupContainer.style.boxShadow = '0 2px 4px rgba(0,0,0,0.2)';
+              newPopupContainer.style.zIndex = '1000';
+              document.body.appendChild(newPopupContainer);
+            }
+
+            const popupContent = nearest
+              .map((element, index) => {
+                const parkingPoint = turf.point([element.lon, element.lat]);
+                const matchingRegion = geojsonData.features.find(feature =>
+                  turf.booleanPointInPolygon(parkingPoint, feature)
+                );
+                const lsoaCode = matchingRegion
+                  ? matchingRegion.properties['LSOA Code']
+                  : 'No data';
+                const total = matchingRegion
+                  ? matchingRegion.properties['Total']
+                  : 'No data';
+
+                // Return HTML content
+                return `
+                  <div>
+                    <strong>${index + 1}. </strong>LSOA Code: ${lsoaCode}<br />
+                    Distance: <strong>${element.distance.toFixed(2)}</strong> meters<br />
+                    Number of stolen Case: ${total}
+                  </div><hr />
+                `;
+              })
+              .join('');
+            // Update popup container
+            const container = document.getElementById('bikeParkingPopup');
+            container.innerHTML = `<h3>Nearest Bicycle Parking</h3>${popupContent}`;
+            // Add markers to map
+            nearest.forEach(element => {
+              const markerEl = document.createElement('div');
+              markerEl.className = 'bikeParkingMarker';
+              const marker = new Marker({
+                element: markerEl,
+                anchor: 'bottom'
+              })
+                .setLngLat([element.lon, element.lat])
+                .addTo(map);
+              bikeParkingMarkers.push(marker);
+            });
           })
-            .setLngLat([element.lon, element.lat])
-            .addTo(map);
-          bikeParkingMarkers.push(marker);
-        });
+          .catch(error => {
+            console.error('Error fetching bike parking data:', error);
+          });
       })
       .catch(error => {
-        console.error('Error fetching bike parking data:', error);
+        console.error('Error fetching GeoJSON data:', error);
       });
   }
-  
+
 
   function removeBikeParkingMarkers() {
     bikeParkingMarkers.forEach(marker => marker.remove());
