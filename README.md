@@ -54,8 +54,51 @@ SafeBike is primarly aimed to be used by people living and working around London
 
 ## Installation
 
-Include a section that gives intructions on how to install the app or run it in Docker.  What versions of the plugins are you assuming?  Maybe define a licence as well, this is good practise.
+### Prerequisites
+Ensure you have the following installed on your system:
+- **Node.js**
+- **npm** 
+- **Docker** 
 
+### Steps to Install Locally
+1. Clone the repository:
+    ```bash
+   git clone https://github.com/ethmacc/casa0017-web-assessment-SafeBike
+2. Navigate to the project directory and set up the :
+    ```bash
+    cd casa0017-web-assessment-SafeBike
+3. Install dependencies using npm:
+    ```bash
+    npm install
+4. Add config.js:
+    ```bash
+    ## go to this path
+    cd .\casa0017-web-assessment\Website\src\ 
+    ##create the config.js and API key
+    touch config.js  ##also can create manually
+5. Add API key to config.js:  
+    1. Visit the [OpenRoute](https://openrouteservice.org/).
+    2. Sign up for an account or log in if you already have one.
+    3. Follow the instructions on the website to generate an API token.
+    4. Copy the generated API token.
+    5. Replace `'You own API Token'` in the `config.js` file with your actual token.
+
+    ```bash
+    export const API_TOKEN = 'You own API Token';
+6. Go to Website path folder:
+    ```bash
+    cd .\casa0017-web-assessment\Website
+7. Run the website Locally in terminal:
+    ```bash
+    ## Run this command in terminal
+    npm run dev
+    ## Terminal will display like:
+     VITE v6.0.3  ready in 209 ms
+
+    ➜  Local:   http://localhost:5173/
+    ➜  Network: use --host to expose
+    ➜  press h + enter to show help
+8. Go to Local address web page(here is http://localhost:5173/)
 ##  Our Team
 <a href="https://github.com/ethmacc/casa0017-web-assessment/graphs/contributors">
   <img src="https://contributors-img.web.app/image?repo=ethmacc/casa0017-web-assessment" />
