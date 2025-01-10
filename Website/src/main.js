@@ -140,7 +140,6 @@ const boroughLayer = new GeoJsonLayer({
   getFilterCategory:d=> d.properties['name'],
   filterCategories:addArray,
   getLineColor: [0, 0, 0],
-  transitions: {},
   updateTriggers: {
     getFilterCategory: addArray
   },
@@ -237,9 +236,8 @@ const boroughLayer = new GeoJsonLayer({
       getFilterCategory:d=> d.properties['name'],
       filterCategories:addArray,
       getLineColor: [0, 0, 0],
-      transitions: {},
       updateTriggers: {
-        getFilterCategory: addArray
+        getFilterCategory: addArray,
       },
       beforeId: 'place_suburbs',
       extensions: [new DataFilterExtension({ categorySize: addArray[0]==='all'? 0:1})],

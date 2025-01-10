@@ -438,3 +438,12 @@
   .footer-bottom a:hover {
     text-decoration: underline;
   }
+
+@media (max-width: 575.98px) {
+  .fw-semibold{
+    max-width:70vw;
+  }
+  #mainTrendChart {
+    display:none;
+  }
+}
