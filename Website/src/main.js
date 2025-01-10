@@ -583,7 +583,7 @@ const boroughLayer = new GeoJsonLayer({
                   <div>
                     <strong>${index + 1}. </strong>LSOA Code: ${lsoaCode}<br />
                     Distance: <strong>${element.distance.toFixed(2)}</strong> meters<br />
-                    Number of stolen Case: ${total}
+                    Number of stolen Case: ${total ?? 0}
                   </div><hr />
                 `;
               })
