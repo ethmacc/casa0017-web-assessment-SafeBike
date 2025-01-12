@@ -3,7 +3,6 @@
 ## Contents
 
 - [About](#about)
-- [Data Sources](#data-sources)
 - [Showcase](#showcase)
 - [Design](#design)
 - [Installation](#Installation)
