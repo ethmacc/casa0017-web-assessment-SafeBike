@@ -22,9 +22,9 @@ The MPS Crime Data contains data for all types of crime over the past 24 months.
 
 ## Showcase
 
-![image](https://github.com/user-attachments/assets/344421da-93c3-47ea-be1b-254b34e85dca)
+<img src=https://github.com/user-attachments/assets/49d37de9-8a20-4f6e-be70-3657349a3870 width=500>
 
-![image](https://github.com/user-attachments/assets/d043b0a9-dd1f-42ab-876b-d6f4204c7314)
+![image](https://github.com/user-attachments/assets/bb7e065e-b631-429c-bafb-b8944d7b2795)
 
 ![image](https://github.com/user-attachments/assets/53ee011c-95df-4ca3-9561-13be36254856)
 
