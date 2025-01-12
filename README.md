@@ -22,6 +22,12 @@ The MPS Crime Data contains data for all types of crime over the past 24 months.
 
 ## Showcase
 
+### Demo video
+
+https://github.com/user-attachments/assets/f5383e13-c760-4750-81ab-61b99fade65b
+
+### Final stills
+
 <img src=https://github.com/user-attachments/assets/49d37de9-8a20-4f6e-be70-3657349a3870 width=500>
 
 <img src=https://github.com/user-attachments/assets/bb7e065e-b631-429c-bafb-b8944d7b2795 width=500>
@@ -40,6 +46,8 @@ The MPS Crime Data contains data for all types of crime over the past 24 months.
 SafeBike is primarly aimed to be used by people living and working around London who own and regularly use bicycles to travel around the city. The MPS Crime Data used to power the application only covers London, therefore other cities are not currently supported.
 
 ### Wireframes
+
+The initial wireframes below formed the basis for the development of the final site:
 
 <img src=https://github.com/user-attachments/assets/ff066d7b-9667-46cb-8328-bdf8e02e782c width=500>
 
