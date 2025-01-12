@@ -39,15 +39,15 @@ SafeBike is primarly aimed to be used by people living and working around London
 
 ### Wireframes
 
-![Bicycle Theft Presentation](https://github.com/user-attachments/assets/ff066d7b-9667-46cb-8328-bdf8e02e782c)
+<img src=https://github.com/user-attachments/assets/ff066d7b-9667-46cb-8328-bdf8e02e782c width=500>
 
-![Bicycle Theft Presentation (1)](https://github.com/user-attachments/assets/3906a8bf-b211-41fd-b728-0320924f1cb8)
+<img src=https://github.com/user-attachments/assets/3906a8bf-b211-41fd-b728-0320924f1cb8 width=500>
 
-![Bicycle Theft Presentation (2)](https://github.com/user-attachments/assets/ef24c31a-5476-4efd-8b71-ad5ff78a87c0)
+<img src=https://github.com/user-attachments/assets/ef24c31a-5476-4efd-8b71-ad5ff78a87c0 width=500>
 
-![Bicycle Theft Presentation (3)](https://github.com/user-attachments/assets/36f8e13e-26a9-46cc-aa62-59505f781f03)
+<img src=https://github.com/user-attachments/assets/36f8e13e-26a9-46cc-aa62-59505f781f03 width=500>
 
-![Bicycle Theft Presentation (4)](https://github.com/user-attachments/assets/14fe1580-3078-4886-9846-3f776e2213ba)
+<img src=https://github.com/user-attachments/assets/14fe1580-3078-4886-9846-3f776e2213ba width=500>
 
 ## Installation
 
