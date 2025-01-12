@@ -47,8 +47,6 @@ SafeBike is primarly aimed to be used by people living and working around London
 
 ![Bicycle Theft Presentation (2)](https://github.com/user-attachments/assets/ef24c31a-5476-4efd-8b71-ad5ff78a87c0)
 
-![Bicycle Theft Presentation (3)](https://github.com/user-attachments/assets/bcb8b633-23ef-4a59-a26b-e5364be04356)
-
 ![Bicycle Theft Presentation (4)](https://github.com/user-attachments/assets/14fe1580-3078-4886-9846-3f776e2213ba)
 
 ## Installation
