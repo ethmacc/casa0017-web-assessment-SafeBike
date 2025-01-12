@@ -28,8 +28,6 @@ The MPS Crime Data contains data for all types of crime over the past 24 months.
 
 <img src=https://github.com/user-attachments/assets/270419bb-41ef-43c8-b647-b3be4e58e73b width=500>
 
-<img src=https://github.com/user-attachments/assets/270419bb-41ef-43c8-b647-b3be4e58e73b width=500>
-
 <img src=https://github.com/user-attachments/assets/ec3d6a0a-4274-4413-a48a-08f362bef55a width=500>
 
 
@@ -46,6 +44,8 @@ SafeBike is primarly aimed to be used by people living and working around London
 ![Bicycle Theft Presentation (1)](https://github.com/user-attachments/assets/3906a8bf-b211-41fd-b728-0320924f1cb8)
 
 ![Bicycle Theft Presentation (2)](https://github.com/user-attachments/assets/ef24c31a-5476-4efd-8b71-ad5ff78a87c0)
+
+![Bicycle Theft Presentation (3)](https://github.com/user-attachments/assets/36f8e13e-26a9-46cc-aa62-59505f781f03)
 
 ![Bicycle Theft Presentation (4)](https://github.com/user-attachments/assets/14fe1580-3078-4886-9846-3f776e2213ba)
 
